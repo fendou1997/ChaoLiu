@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChaoLiu", "ChaoLiu\ChaoLiu.csproj", "{5788A447-4BAB-48B4-9BE2-C3785B3E879C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate", "Calculate\Calculate.csproj", "{BAD27A54-9E2D-4F35-8E2E-DC49145575B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreHandle", "PreHandle\PreHandle.csproj", "{9416DE54-E75D-408E-9C28-10F2739CF192}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5788A447-4BAB-48B4-9BE2-C3785B3E879C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5788A447-4BAB-48B4-9BE2-C3785B3E879C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5788A447-4BAB-48B4-9BE2-C3785B3E879C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAD27A54-9E2D-4F35-8E2E-DC49145575B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD27A54-9E2D-4F35-8E2E-DC49145575B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD27A54-9E2D-4F35-8E2E-DC49145575B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD27A54-9E2D-4F35-8E2E-DC49145575B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9416DE54-E75D-408E-9C28-10F2739CF192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9416DE54-E75D-408E-9C28-10F2739CF192}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9416DE54-E75D-408E-9C28-10F2739CF192}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9416DE54-E75D-408E-9C28-10F2739CF192}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
