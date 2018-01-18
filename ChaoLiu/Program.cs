@@ -41,7 +41,7 @@ namespace ChaoLiu
                     节点4：平衡节点，  U(4)=1.0000∠0.0000
                     */
 
-                    case "ＰＱ节点":
+                    case "PQ节点":
                         try
                         {
                             string[] pqstr = contents[i].Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
@@ -62,7 +62,7 @@ namespace ChaoLiu
 
 
                         break;
-                    case "ＰＶ节点":
+                    case "PV节点":
 
                         //
 
