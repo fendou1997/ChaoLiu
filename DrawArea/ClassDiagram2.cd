@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DrawArea.ComFunction">
+    <Position X="24.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAEAAAAMAAIBAAACAAACRAAACAgAACAAABAAAABoAA=</HashCode>
+      <FileName>ComFunction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawBreak" Collapsed="true">
+    <Position X="4.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIoAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawBreak.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawCapacitor" Collapsed="true">
+    <Position X="6.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawCapacitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawKnife" Collapsed="true">
+    <Position X="9" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIoAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawKnife.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawLine" Collapsed="true">
+    <Position X="15.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIBACACFAIBAAgAgAEICAAAAEAAUAQAQAUAAAAAAAAI=</HashCode>
+      <FileName>Draw\DrawLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawObject" Collapsed="true">
+    <Position X="9" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACAAIBAIgAgUAACAAQAEAAUEAADAUCAgAUAgAo=</HashCode>
+      <FileName>Draw\DrawObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawPower" Collapsed="true">
+    <Position X="2.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawPower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawRectanlge" Collapsed="true">
+    <Position X="8" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACACIBAAAAgEAACACAAAAAQAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawTransformer2" Collapsed="true">
+    <Position X="11.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawTransformer2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawTransformer3" Collapsed="true">
+    <Position X="13.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Draw\DrawTransformers3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.DrawArea" Collapsed="true">
+    <Position X="24.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAwAABiAAAACAEBIAgAACAABAAAACAI=</HashCode>
+      <FileName>DrawArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.AdGraph" Collapsed="true">
+    <Position X="20.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIACAgAAAgAAAAACAABDAEAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Graph\AdGraph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.EdgeNode" Collapsed="true">
+    <Position X="20.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIBAAA=</HashCode>
+      <FileName>Graph\EdgeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.VertexNode" Collapsed="true">
+    <Position X="20.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAAECQAABAAACAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Graph\VertexNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.GraphicsList" Collapsed="true">
+    <Position X="22.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAEAAACAAAgAACAAoQAQIAAEQAAAACABAAABAQCA=</HashCode>
+      <FileName>GraphicsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolBreak" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolBreak.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolCapacitor" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolCapacitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolKnife" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolKnife.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolLine" Collapsed="true">
+    <Position X="16" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAIAAAAAACAAA=</HashCode>
+      <FileName>Tools\ToolLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolObject" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAAAQAAAgAAAAAAAAAAABAAAAAAIQAAAAACAAA=</HashCode>
+      <FileName>Tools\ToolObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolPointer" Collapsed="true">
+    <Position X="18.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQCAAAAAAAAAAAAAAgACAAABAAAAAAIAAAAAACAAA=</HashCode>
+      <FileName>Tools\ToolPointer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolPower" Collapsed="true">
+    <Position X="13.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolPower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolRectangle" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Tools\ToolRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolTransformer2" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolTransformer2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.ToolTransformer3" Collapsed="true">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolTransformer3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawArea.Properties.Resources" Collapsed="true">
+    <Position X="24.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIFEIBAEQAAAAABAAAACAABAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DrawArea.DrawToolType" Collapsed="true">
+    <Position X="20.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGIAAAAAAAAAAAAEAABAAAAAAAABAAAACAABAIA=</HashCode>
+      <FileName>Draw\DrawToolType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DrawArea.PointerMode" Collapsed="true">
+    <Position X="22.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAgCAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>PointerMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

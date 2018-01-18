@@ -14,15 +14,13 @@ namespace Calculate
         {
             int i = 3, j = 3;
             //设置初值
+
             double[] U = new double[i];
             double[] thera = new double[i];
 
             U[0] = 1; U[1] = 1;
             U[2] =1;
-            thera[0] = 0/180* 3.1415926; thera[1] = 0 / 180 * 3.1415926; thera[2] = 0 / 180 * 3.1415926;
-
-
-
+            thera[0] = 0; thera[1] = 0; thera[2] = 0;
             double[] DU = new double[j];
             double[] Dthera = new double[i];///
             //生成B',B"
@@ -129,7 +127,6 @@ namespace Calculate
         /// <param name="n"></param>a行数
         /// <param name="p"></param>b列数
         /// <param name="m"></param>a列数，b行数
-
         /// <param name="a"></param>A*B
         /// <param name="b"></param>
         /// <param name="c"></param>得到的乘积后的矩阵

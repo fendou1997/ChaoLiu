@@ -119,6 +119,7 @@ namespace ChaoLiu
                 
             }
         }
+
     }
     class Data//使用类进行封装，从而使用泛型集合
     {
