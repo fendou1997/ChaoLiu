@@ -7,90 +7,104 @@ using System.Threading.Tasks;
 //对于数据进行计算，达到计算目的。
 namespace Calculate
 {
+
     class Program
     {
         static void Main(string[] args)
         {
-            int i = 3, j = 3;
+            int i = 3, j = 2;
             //设置初值
             double[] U = new double[i];
             double[] thera = new double[i];
 
-            U[0] = 1; U[1] = 1; U[2] = 1;
-            thera[0] = 0; thera[1] = 0; thera[2] = 0;
+            U[0] = 1; U[1] = 1;
+            U[2] = 0.95;
+            thera[0] = 0/180* 3.1415926; thera[1] = 0 / 180 * 3.1415926; thera[2] = 0 / 180 * 3.1415926;
 
 
 
-            double[] DU = new double[i];
+            double[] DU = new double[j];
             double[] Dthera = new double[i];///
             //生成B',B"
-            double[,] G = new double[i, i];
+            double[,] G = new double[i+1, i+1];
+            double[,] B = new double[i + 1, i + 1];
             double[,] B1 = new double[i, i];
-            double[,] B2 = new double[i, i];///
+            double[,] B2 = new double[j, j];///
             double[] P = new double[i];
-            double[] Q = new double[i];///
+            double[] Q = new double[j];///
             double[] DP = new double[i];
-            double[] DQ = new double[i];///
+            double[] DQ = new double[j];///
             double[,] Y1 = new double[i, 1];//DP/U
-            double[,] Y2 = new double[i, 1];//DQ/U///
+            double[,] Y2 = new double[j, 1];//DQ/U///
             double[,] X1 = new double[i, 1];//U*DThera
-            double[,] X2 = new double[i, 1];//DU///
+            double[,] X2 = new double[j, 1];//DU///
             //赋值
-            P[0] = -0.4; P[1] = -0.5; P[2] = -0.6;
-            Q[0] = -0.15; Q[1] = -0.2; Q[2] = -0.25;
-            B1[0, 0] = -10; B1[0, 1] = 0; B1[0, 2] = 0;
-            B1[1, 0] = 0; B1[1, 1] = -5.8824; B1[1, 2] = 0;
-            B1[2, 0] = 0; B1[2, 1] = 0; B1[2, 2] = -15;
-            B2 = B1;
-            G[0, 0] = 3.3333; G[0, 1] = 0; G[0, 2] = 0;
-            G[1, 0] = 0; G[1, 1] = 1.4706; G[1, 2] = 0;
-            G[2, 0] = 0; G[2, 1] = 0; G[2, 2] = 5;
+            P[0] = -0.6; P[1] = -0.8; P[2] = 0.4;
+            Q[0] = -0.25; Q[1] = -0.35; 
+
+            B1[0, 0] = -19.2647; B1[0, 1] = 0; B1[0, 2] = 11.7647;
+            B1[1, 0] = 0; B1[1, 1] = -6.3348; B1[1, 2] = 0;
+            B1[2, 0] = 11.7647; B1[2, 1] = 0; B1[2, 2] = -19.2647;
+
+            B2[0, 0] = -19.2647;B2[0, 1] = 0;
+
+            B2[1, 0] = 0; B2[1, 1] = -6.3343;
+
+            G[0, 0] = 5.4412; G[0, 1] = 0; G[0, 2] =-2.9412;G[0, 3] = -2.5;
+            G[1, 0] = 0; G[1, 1] = 2.2624; G[1, 2] = 0; G[1, 3] = -2.2624;
+             G[2, 0] =-2.9412; G[2, 1] = 0; G[2, 2] = 5.4412; G[2, 3] = -2.5;
+            G[3, 0] = -2.5; G[3, 1] = -2.2624; G[3, 2] =-2.5; G[3, 3] = 7.2624;
+
+            B[0, 0] = -19.2647; B[0, 1] = 0; B[0, 2] = 11.7647; B[0, 3] = 7.5;
+            B[1, 0] = 0; B[1, 1] = -6.3348; B[1, 2] = 0; B[1, 2] =6.3348;
+            B[2, 0] = -11.7647; B[2, 1] = 0; B[2, 2] = -19.2747; B[2, 3] = 7.5;
+            B[3, 0] = 7.5; B[3, 1] = 6.3348; B[3, 2] = 7.5; B[3, 3] = -21.3348;
             //设置精度
             double eps = 0.0001;
-            for (int h = 0; h < 1000; h++)
+            for (int h = 0; h < 100000; h++)
             {
 
 
-                Caculate_Y1(i, U, thera, G, B1, P, DP, Y1);
-                Caculate_Y2(i, U, thera, G, B1, Q, DQ, Y2);
+                Caculate_Y1(i, U, thera, G, B, P, DP, Y1);
+                
                 double[,] dReturn1 = ReverseMatrix(B1, i);
-                double[,] dReturn2 = ReverseMatrix(B2, i);
+                double[,] dReturn2 = ReverseMatrix(B2, j);
+
+
                 ChengJi(i, 1, i, dReturn1, Y1, X1);
                 for (int o = 0; o < X1.Length; o++)
                 {
                     Dthera[o] = X1[o, 0] / U[o];
                 }
+                for (int c = 0; c < thera.Length; c++)
+                {
+                    thera[c] = thera[c] + Dthera[c];
+                }
+                Caculate_Y2(j, U, thera, G, B, Q, DQ, Y2);
                 //得到Dthera
-                ChengJi(i, 1, i, dReturn2, Y2, X2);
+
+
+                ChengJi(j, 1, j, dReturn2, Y2, X2);//为了得到X2
+
+
+
                 for (int o = 0; o < X2.Length; o++)
                 {
                     DU[o] = X2[o, 0];
                 }
                 //判断精度
+
+
                 if (PanDuan(Dthera, eps) == Dthera.Length && PanDuan(DU, eps) == DU.Length)
                 {
                     break;
                 }
                 //修正
-                for (int c = 0; c < U.Length; c++)
+                for (int c = 0; c < DU.Length; c++)
                 {
                     U[c] = U[c] + DU[c];
                 }
-                for (int c = 0; c < thera.Length; c++)
-                {
-                    thera[c] = thera[c] + Dthera[c];
-                    if (Math.Abs( thera[c] )> 360)
-                    {
-                        if (thera[c] < 0)
-                        {
-                            thera[c] = thera[c] + 360;
-                        }
-                        if(thera[c] > 0)
-                        {
-                            thera[c] = thera[c] - 360;
-                        }
-                    }
-                }
+              
             }
             Console.ReadKey();
 
@@ -140,14 +154,23 @@ namespace Calculate
             }
         }
 
-        private static void Caculate_Y2(int i, double[] U, double[] thera, double[,] G, double[,] B1, double[] Q, double[] DQ, double[,] Y2)
+        private static void Caculate_Y2(int j, double[] U, double[] thera, double[,] G, double[,] B2, double[] Q, double[] DQ, double[,] Y2)
         {
+           
             for (int l = 0; l < Q.Length; l++)
             {
                 double sum = 0;
-                for (int e = 0; e < Q.Length; e++)
+                for (int e = 0; e < Math.Sqrt( B2.Length); e++)
                 {
-                    sum = sum + U[e] * G[l, e] * Math.Sin(thera[l] - thera[e]) - U[e] * B1[l, e] * Math.Cos(thera[l] - thera[e]);
+                    if (e != Math.Sqrt(B2.Length)-1)
+                    {
+                        sum = sum + U[e] * G[l, e] * Math.Sin(thera[l] - thera[e]) - U[e] * B2[l, e] * Math.Cos(thera[l] - thera[e]);
+                    }
+                    else
+                    {
+                        sum = sum + 1 * G[l, e] * Math.Sin(thera[l]) - 1 * B2[l, e] * Math.Cos(thera[l]);
+                    }
+                   
                 }
                 DQ[l] = Q[l] - U[l] * sum;
                 Y2[l,0] = DQ[l] / U[l];
@@ -158,15 +181,10 @@ namespace Calculate
         {
 
             //计算行列式的方法
-
             //   a1 a2 a3
-
             //  b1 b2 b3
-
             //  c1 c2 c3
-
             // 结果为 a1·b2·c3+b1·c2·a3+c1·a2·b3-a3·b2·c1-b3·c2·a1-c3·a2·b1(注意对角线就容易记住了）
-
             double[,] dMatrix = new double[Level, Level];   //定义二维数组，行列数相同
             for (int i = 0; i < Level; i++)
                 for (int j = 0; j < Level; j++)
@@ -371,9 +389,16 @@ namespace Calculate
             for (int l = 0; l < P.Length; l++)
             {
                 double sum = 0;
-                for (int e = 0; e < P.Length; e++)
+                for (int e = 0; e < P.Length+1; e++)
                 {
-                    sum = sum + U[e] * G[l, e] * Math.Cos(thera[l] - thera[e]) + U[e] * B1[l, e] * Math.Sin(thera[l] - thera[e]);
+                    if (e!= P.Length )
+                    {
+                        sum = sum + U[e] * G[l, e] * Math.Cos(thera[l] - thera[e]) + U[e] * B1[l, e] * Math.Sin(thera[l] - thera[e]);
+                    }
+                    else
+                    {
+                        sum = sum +1 * G[l, e] * Math.Cos(thera[l]) +1 * B1[l, e] * Math.Sin(thera[l]);
+                    }
                 }
                 DP[l] = P[l] - U[l] * sum;
                 Y1[l,0] = DP[l] / U[l];

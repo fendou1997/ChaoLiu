@@ -10,7 +10,8 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
     {
         static void Main(string[] args)
         {
-          
+            Console.WriteLine(Math.Cos(3.1415926));
+            Console.ReadKey();
         }
     
 
