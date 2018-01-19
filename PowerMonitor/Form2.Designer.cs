@@ -38,11 +38,12 @@
             this.Output = new System.Windows.Forms.ToolStripMenuItem();
             this.Printer = new System.Windows.Forms.ToolStripMenuItem();
             this.Close = new System.Windows.Forms.ToolStripMenuItem();
+            this.另存为ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.Paint = new System.Windows.Forms.ToolStripMenuItem();
             this.Cancel = new System.Windows.Forms.ToolStripMenuItem();
             this.Tool = new System.Windows.Forms.ToolStripMenuItem();
-            this.Monitor = new System.Windows.Forms.ToolStripMenuItem();
+            this.Calculate = new System.Windows.Forms.ToolStripMenuItem();
             this.WiFi = new System.Windows.Forms.ToolStripMenuItem();
             this.Analyse = new System.Windows.Forms.ToolStripMenuItem();
             this.Data = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.timer5 = new System.Windows.Forms.Timer(this.components);
-            this.另存为ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PrintData = new System.Windows.Forms.ToolStripMenuItem();
             this.skinMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -167,6 +168,13 @@
             this.Close.Text = "关闭 ( &C )";
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
+            // 另存为ToolStripMenuItem
+            // 
+            this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
+            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.另存为ToolStripMenuItem.Text = "另存为";
+            this.另存为ToolStripMenuItem.Click += new System.EventHandler(this.另存为ToolStripMenuItem_Click);
+            // 
             // Edit
             // 
             this.Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -179,34 +187,34 @@
             // Paint
             // 
             this.Paint.Name = "Paint";
-            this.Paint.Size = new System.Drawing.Size(131, 22);
+            this.Paint.Size = new System.Drawing.Size(152, 22);
             this.Paint.Text = "重绘（&I）";
             // 
             // Cancel
             // 
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(131, 22);
+            this.Cancel.Size = new System.Drawing.Size(152, 22);
             this.Cancel.Text = "撤销（&Z）";
             // 
             // Tool
             // 
             this.Tool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Monitor,
+            this.Calculate,
             this.WiFi});
             this.Tool.Name = "Tool";
             this.Tool.Size = new System.Drawing.Size(75, 21);
             this.Tool.Text = "工具（&T）";
             // 
-            // Monitor
+            // Calculate
             // 
-            this.Monitor.Name = "Monitor";
-            this.Monitor.Size = new System.Drawing.Size(124, 22);
-            this.Monitor.Text = "实时监测";
+            this.Calculate.Name = "Calculate";
+            this.Calculate.Size = new System.Drawing.Size(152, 22);
+            this.Calculate.Text = "计算";
             // 
             // WiFi
             // 
             this.WiFi.Name = "WiFi";
-            this.WiFi.Size = new System.Drawing.Size(124, 22);
+            this.WiFi.Size = new System.Drawing.Size(152, 22);
             this.WiFi.Text = "通信";
             // 
             // Analyse
@@ -214,7 +222,8 @@
             this.Analyse.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Data,
             this.Chart,
-            this.Predict});
+            this.Predict,
+            this.PrintData});
             this.Analyse.Name = "Analyse";
             this.Analyse.Size = new System.Drawing.Size(78, 21);
             this.Analyse.Text = "分析（&N）";
@@ -222,19 +231,19 @@
             // Data
             // 
             this.Data.Name = "Data";
-            this.Data.Size = new System.Drawing.Size(133, 22);
+            this.Data.Size = new System.Drawing.Size(152, 22);
             this.Data.Text = "数据（&D）";
             // 
             // Chart
             // 
             this.Chart.Name = "Chart";
-            this.Chart.Size = new System.Drawing.Size(133, 22);
+            this.Chart.Size = new System.Drawing.Size(152, 22);
             this.Chart.Text = "表格（&H）";
             // 
             // Predict
             // 
             this.Predict.Name = "Predict";
-            this.Predict.Size = new System.Drawing.Size(133, 22);
+            this.Predict.Size = new System.Drawing.Size(152, 22);
             this.Predict.Text = "预测（&P）";
             // 
             // Mode
@@ -263,12 +272,11 @@
             this.skinLine1.TabIndex = 8;
             this.skinLine1.Text = "skinLine1";
             // 
-            // 另存为ToolStripMenuItem
+            // PrintData
             // 
-            this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
-            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.另存为ToolStripMenuItem.Text = "另存为";
-            this.另存为ToolStripMenuItem.Click += new System.EventHandler(this.另存为ToolStripMenuItem_Click);
+            this.PrintData.Name = "PrintData";
+            this.PrintData.Size = new System.Drawing.Size(152, 22);
+            this.PrintData.Text = "打印数据";
             // 
             // Form2
             // 
@@ -283,7 +291,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.skinMenuStrip1;
             this.Name = "Form2";
-            this.Text = "柱上开关监视器(V1.0.0)";
+            this.Text = "潮流计算(V1.0.0)";
             this.skinMenuStrip1.ResumeLayout(false);
             this.skinMenuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -312,7 +320,7 @@
         private System.Windows.Forms.ToolStripMenuItem Chart;
         private System.Windows.Forms.ToolStripMenuItem Predict;
         private CCWin.SkinControl.SkinLine skinLine1;
-        private System.Windows.Forms.ToolStripMenuItem Monitor;
+        private System.Windows.Forms.ToolStripMenuItem Calculate;
         private System.Windows.Forms.ToolStripMenuItem WiFi;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
@@ -320,5 +328,6 @@
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Timer timer5;
         private System.Windows.Forms.ToolStripMenuItem 另存为ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PrintData;
     }
 }

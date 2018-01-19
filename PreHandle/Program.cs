@@ -59,6 +59,7 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
             }
 
             #endregion
+            #region 写入
             using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Write))
             {
                 StreamWriter sw = new StreamWriter(fsRead);
@@ -72,7 +73,7 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
 
             }
 
-
+            #endregion
 
         }
 

@@ -12,24 +12,41 @@ namespace Calculate
     {
         static void Main(string[] args)
         {
-            int i = 3, j = 3;
+            int i = 3, j = 3; double eps = 0.0001;
+            double[] P = new double[i];
+            double[] Q = new double[j];///
+            double[,] G = new double[i + 1, i + 1];
+            double[,] B = new double[i + 1, i + 1];
+            G[0, 0] = 3.3333; G[0, 1] = 0; G[0, 2] = 0; G[0, 3] = -3.3333;
+            G[1, 0] = 0; G[1, 1] = 1.4706; G[1, 2] = 0; G[1, 3] = -1.4706;
+            G[2, 0] = 0; G[2, 1] = 0; G[2, 2] = 5; G[2, 3] = 5;
+            G[3, 0] = -3.3333; G[3, 1] = -1.4706; G[3, 2] = 5; G[3, 3] = 9.8039;
+
+            B[0, 0] = -10; B[0, 1] = 0; B[0, 2] = 0; B[0, 3] = 10;
+            B[1, 0] = 0; B[1, 1] = -5.8824; B[1, 2] = 0; B[1, 2] = 5.8824;
+            B[2, 0] = 0; B[2, 1] = 0; B[2, 2] = -15; B[2, 3] = 15;
+            B[3, 0] = 10; B[3, 1] = 5.8824; B[3, 2] = 15; B[3, 3] = -30.8824;
             //设置初值
 
             double[] U = new double[i];
             double[] thera = new double[i];
 
             U[0] = 1; U[1] = 1;
-            U[2] =1;
+            U[2] = 1;
             thera[0] = 0; thera[1] = 0; thera[2] = 0;
+
             double[] DU = new double[j];
             double[] Dthera = new double[i];///
             //生成B',B"
-            double[,] G = new double[i+1, i+1];
-            double[,] B = new double[i + 1, i + 1];
+
+
+
+
             double[,] B1 = new double[i, i];
             double[,] B2 = new double[j, j];///
-            double[] P = new double[i];
-            double[] Q = new double[j];///
+
+
+
             double[] DP = new double[i];
             double[] DQ = new double[j];///
             double[,] Y1 = new double[i, 1];//DP/U
@@ -41,28 +58,26 @@ namespace Calculate
             Q[0] = -0.15; Q[1] = -0.20; Q[2] = -0.25;
 
             B1[0, 0] = -10; B1[0, 1] = 0; B1[0, 2] = 0;
-            B1[1, 0] = 0; B1[1, 1] =-5.8824; B1[1, 2] = 0;
+            B1[1, 0] = 0; B1[1, 1] = -5.8824; B1[1, 2] = 0;
             B1[2, 0] = 0; B1[2, 1] = 0; B1[2, 2] = -15;
 
             B2 = B1;
 
-            G[0, 0] = 3.3333;  G[0, 1] = 0;       G[0, 2] = 0;   G[0, 3] =-3.3333;
-            G[1, 0] = 0;       G[1, 1] =1.4706;   G[1, 2] = 0;   G[1, 3] =-1.4706;
-            G[2, 0] = 0;       G[2, 1] = 0;       G[2, 2] = 5;   G[2, 3] =5;
-            G[3, 0] = -3.3333; G[3, 1] = -1.4706; G[3, 2] = 5;   G[3, 3] =9.8039;
+            MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2);
+            Console.ReadKey();
 
-            B[0, 0] = -10;   B[0, 1] = 0;        B[0, 2] = 0;    B[0, 3] =10;
-            B[1, 0] = 0;     B[1, 1] = -5.8824;  B[1, 2] = 0;    B[1, 2] = 5.8824;
-            B[2, 0] =0 ;     B[2, 1] = 0;        B[2, 2] = -15;  B[2, 3] = 15;
-            B[3, 0] =10 ;    B[3, 1] = 5.8824;   B[3, 2] = 15;   B[3, 3] = -30.8824;
+        }
+
+        private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2)
+        {
             //设置精度
-            double eps = 0.0001;
+
             for (int h = 0; h < 100000; h++)
             {
 
 
                 Caculate_Y1(i, U, thera, G, B, P, DP, Y1);
-                
+
                 double[,] dReturn1 = ReverseMatrix(B1, i);
                 double[,] dReturn2 = ReverseMatrix(B2, j);
 
@@ -101,10 +116,8 @@ namespace Calculate
                 {
                     U[c] = U[c] + DU[c];
                 }
-              
-            }
-            Console.ReadKey();
 
+            }
         }
 
         private static int PanDuan(double[] Dthera, double eps)
