@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerMonitor", "PowerMonito
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lianxi", "lianxi\lianxi.csproj", "{641C01EA-7E6E-48E9-B136-00835E5496CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateEngine", "CalculateEngine\CalculateEngine.csproj", "{19B4D910-205B-4B75-8FA4-9C522183F61F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B4D910-205B-4B75-8FA4-9C522183F61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B4D910-205B-4B75-8FA4-9C522183F61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B4D910-205B-4B75-8FA4-9C522183F61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B4D910-205B-4B75-8FA4-9C522183F61F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

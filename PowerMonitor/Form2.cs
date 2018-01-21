@@ -18,6 +18,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Diagnostics;
+using CalculateEngine;
 
 namespace PowerMonitor
 {
@@ -468,66 +469,10 @@ namespace PowerMonitor
         private void Calculate_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
+            CalculateEngine.Calculate.abc();
             panel2.Show();
         }
-        private void InitChart1()
-        {
-            //定义图表区域
-            this.chart1.ChartAreas.Clear();
-            ChartArea chartArea1 = new ChartArea("C1");
-            this.chart1.ChartAreas.Add(chartArea1);
-            //定义存储和显示点的容器
-            this.chart1.Series.Clear();
-            Series series1 = new Series("S1");
-            series1.ChartArea = "C1";
-            this.chart1.Series.Add(series1);
-            //设置图表显示样式
-            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
-            this.chart1.ChartAreas[0].AxisY.Maximum = 100;
-            this.chart1.ChartAreas[0].AxisX.Interval = 5;
-            this.chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
-            this.chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
-            //设置标题
-            this.chart1.Titles.Clear();
-            this.chart1.Titles.Add("S01");
-            this.chart1.Titles[0].Text = "电压显示";
-            this.chart1.Titles[0].ForeColor = Color.RoyalBlue;
-            this.chart1.Titles[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            //设置图表显示样式
-            this.chart1.Series[0].Color = Color.Red;
-            this.chart1.Series[0].ChartType = SeriesChartType.Line;
-           
-            this.chart1.Series[0].Points.Clear();
-        }
-        private void InitChart2()
-        {
-            //定义图表区域
-            this.chart2.ChartAreas.Clear();
-            ChartArea chartArea1 = new ChartArea("C1");
-            this.chart2.ChartAreas.Add(chartArea1);
-            //定义存储和显示点的容器
-            this.chart2.Series.Clear();
-            Series series1 = new Series("S1");
-            series1.ChartArea = "C1";
-            this.chart2.Series.Add(series1);
-            //设置图表显示样式
-            this.chart2.ChartAreas[0].AxisY.Minimum = 0;
-            this.chart2.ChartAreas[0].AxisY.Maximum = 100;
-            this.chart2.ChartAreas[0].AxisX.Interval = 5;
-            this.chart2.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
-            this.chart2.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
-            //设置标题
-            this.chart2.Titles.Clear();
-            this.chart2.Titles.Add("S01");
-            this.chart2.Titles[0].Text = "电流显示";
-            this.chart2.Titles[0].ForeColor = Color.RoyalBlue;
-            this.chart2.Titles[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            //设置图表显示样式
-            this.chart2.Series[0].Color = Color.Red;
-            this.chart2.Series[0].ChartType = SeriesChartType.Line;
-            
-            this.chart2.Series[0].Points.Clear();
-        }
+     
         private void WiFi_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
@@ -539,6 +484,8 @@ namespace PowerMonitor
 
         }
 
+
+        #region chart
         private void skinButton2_Click(object sender, EventArgs e)
         {
             InitChart1();
@@ -548,9 +495,15 @@ namespace PowerMonitor
         {
             InitChart2();
         }
+
+
+
+
+
+        
         private Queue<double> dataQueue1 = new Queue<double>(10);
         private Queue<double> dataQueue2 = new Queue<double>(10);
-        private bool leafflag = false;
+       
         private int num = 1;//每次删除增加几个点
         private void UpdateQueueValue1()
         {
@@ -590,7 +543,64 @@ namespace PowerMonitor
             }
 
         }
+        private void InitChart1()
+        {
+            //定义图表区域
+            this.chart1.ChartAreas.Clear();
+            ChartArea chartArea1 = new ChartArea("C1");
+            this.chart1.ChartAreas.Add(chartArea1);
+            //定义存储和显示点的容器
+            this.chart1.Series.Clear();
+            Series series1 = new Series("S1");
+            series1.ChartArea = "C1";
+            this.chart1.Series.Add(series1);
+            //设置图表显示样式
+            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
+            this.chart1.ChartAreas[0].AxisY.Maximum = 100;
+            this.chart1.ChartAreas[0].AxisX.Interval = 5;
+            this.chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            this.chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            //设置标题
+            this.chart1.Titles.Clear();
+            this.chart1.Titles.Add("S01");
+            this.chart1.Titles[0].Text = "电压显示";
+            this.chart1.Titles[0].ForeColor = Color.RoyalBlue;
+            this.chart1.Titles[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            //设置图表显示样式
+            this.chart1.Series[0].Color = Color.Red;
+            this.chart1.Series[0].ChartType = SeriesChartType.Line;
 
+            this.chart1.Series[0].Points.Clear();
+        }
+        private void InitChart2()
+        {
+            //定义图表区域
+            this.chart2.ChartAreas.Clear();
+            ChartArea chartArea1 = new ChartArea("C1");
+            this.chart2.ChartAreas.Add(chartArea1);
+            //定义存储和显示点的容器
+            this.chart2.Series.Clear();
+            Series series1 = new Series("S1");
+            series1.ChartArea = "C1";
+            this.chart2.Series.Add(series1);
+            //设置图表显示样式
+            this.chart2.ChartAreas[0].AxisY.Minimum = 0;
+            this.chart2.ChartAreas[0].AxisY.Maximum = 100;
+            this.chart2.ChartAreas[0].AxisX.Interval = 5;
+            this.chart2.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            this.chart2.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            //设置标题
+            this.chart2.Titles.Clear();
+            this.chart2.Titles.Add("S01");
+            this.chart2.Titles[0].Text = "电流显示";
+            this.chart2.Titles[0].ForeColor = Color.RoyalBlue;
+            this.chart2.Titles[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            //设置图表显示样式
+            this.chart2.Series[0].Color = Color.Red;
+            this.chart2.Series[0].ChartType = SeriesChartType.Line;
+
+            this.chart2.Series[0].Points.Clear();
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateQueueValue1();
@@ -630,6 +640,7 @@ namespace PowerMonitor
         {
             this.timer2.Stop();
         }
+        #endregion
     }
 }
     

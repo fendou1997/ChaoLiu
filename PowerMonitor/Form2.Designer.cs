@@ -165,33 +165,33 @@
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(152, 22);
+            this.Open.Size = new System.Drawing.Size(134, 22);
             this.Open.Text = "打开（&O）";
             this.Open.Click += new System.EventHandler(this.Open_Click);
             // 
             // Output
             // 
             this.Output.Name = "Output";
-            this.Output.Size = new System.Drawing.Size(152, 22);
+            this.Output.Size = new System.Drawing.Size(134, 22);
             this.Output.Text = "导出 ( &U )";
             // 
             // Printer
             // 
             this.Printer.Name = "Printer";
-            this.Printer.Size = new System.Drawing.Size(152, 22);
+            this.Printer.Size = new System.Drawing.Size(134, 22);
             this.Printer.Text = "打印（&P）";
             // 
             // Close
             // 
             this.Close.Name = "Close";
-            this.Close.Size = new System.Drawing.Size(152, 22);
+            this.Close.Size = new System.Drawing.Size(134, 22);
             this.Close.Text = "关闭 ( &C )";
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // 另存为ToolStripMenuItem
             // 
             this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
-            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.另存为ToolStripMenuItem.Text = "另存为";
             this.另存为ToolStripMenuItem.Click += new System.EventHandler(this.另存为ToolStripMenuItem_Click);
             // 
@@ -255,25 +255,25 @@
             // Data
             // 
             this.Data.Name = "Data";
-            this.Data.Size = new System.Drawing.Size(152, 22);
+            this.Data.Size = new System.Drawing.Size(133, 22);
             this.Data.Text = "数据（&D）";
             // 
             // Chart
             // 
             this.Chart.Name = "Chart";
-            this.Chart.Size = new System.Drawing.Size(152, 22);
+            this.Chart.Size = new System.Drawing.Size(133, 22);
             this.Chart.Text = "表格（&H）";
             // 
             // Predict
             // 
             this.Predict.Name = "Predict";
-            this.Predict.Size = new System.Drawing.Size(152, 22);
+            this.Predict.Size = new System.Drawing.Size(133, 22);
             this.Predict.Text = "预测（&P）";
             // 
             // PrintData
             // 
             this.PrintData.Name = "PrintData";
-            this.PrintData.Size = new System.Drawing.Size(152, 22);
+            this.PrintData.Size = new System.Drawing.Size(133, 22);
             this.PrintData.Text = "打印数据";
             // 
             // Mode
@@ -603,8 +603,8 @@
             this.Controls.Add(this.Mode);
             this.Controls.Add(this.Bar);
             this.Controls.Add(this.skinMenuStrip1);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.skinMenuStrip1;
             this.Name = "Form2";
