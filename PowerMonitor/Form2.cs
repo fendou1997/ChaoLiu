@@ -28,7 +28,7 @@ namespace PowerMonitor
         {
             InitializeComponent();
         }
-        public int JieDian;//获得节点数
+        static int JieDian;//获得节点数
         /// <summary>
         /// 打开
         /// </summary>
@@ -125,7 +125,8 @@ namespace PowerMonitor
 
         public void DTCreate(int JieDian)
         {
-            for ( int i = 0; i < JieDian; i++)
+            int i;
+            for ( i = 0; i < JieDian; i++)
             {
                 //创建textBox
                 CCWin.SkinControl.SkinTextBox textbox = new CCWin.SkinControl.SkinTextBox();
@@ -183,8 +184,7 @@ namespace PowerMonitor
                 this.panel1.Controls.Add(label4);
                 skinlabellist.Add(label4);
                 
-                //private void skinCombo1_SelectedIndexChanged(object sender, EventArgs e)
-                //  { }
+              
                 CCWin.SkinControl.SkinLabel label2 = new CCWin.SkinControl.SkinLabel();
                 label2.Name = "labelZD2" + i;
                 label2.Parent = this;
@@ -205,8 +205,20 @@ namespace PowerMonitor
                 
 
             }
-                WeiTuoCreated();
-                  WeiTuoCreated2();
+            CCWin.SkinControl.SkinButton Button1 = new CCWin.SkinControl.SkinButton();
+            Button1.Name = "Button";
+            Button1.Parent = this;
+            Button1.Location = new System.Drawing.Point(434, 33 + i * 90);
+            Button1.Size = new System.Drawing.Size(75, 23);
+            Button1.Text = "提交";
+            this.panel1.Controls.Add(Button1);
+            Button1.Click += new System.EventHandler(this.skinButton_Click);
+
+
+
+
+            WeiTuoCreated();
+            WeiTuoCreated2();
         }
         public void WeiTuoCreated()
         {
@@ -224,10 +236,18 @@ namespace PowerMonitor
             }
 
         }
+        static int biaohao = 0;
         private void skinLabel_Click(object sender, EventArgs e)
         {
-
-            Form3 fr = new Form3(JieDian);
+            int i = 0;
+            CCWin.SkinControl.SkinLabel skinlabel = sender as CCWin.SkinControl.SkinLabel;
+            for (i = 0; i < skinlabellist.Count; i++)
+            {
+                if (skinlabel == skinlabellist[i])
+                { break; }
+            }
+            biaohao = i;
+            Form3 fr = new Form3(JieDian,i, ValueSend);
             fr.Show();
         }
         private void skinCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -283,11 +303,24 @@ namespace PowerMonitor
         {
            
         }
+        /// <summary>
+        /// 打开文本文档获得数据，生成文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skinButton_Click(object sender, EventArgs e)
+        {
 
-        //private void skinLabel1_Click(object sender, EventArgs e)
-        //{
+        }
+        double[,] G = new double[JieDian, JieDian];
+        double[,] B = new double[JieDian, JieDian];
+        public void ValueSend(List<double> list1, List<double> list2)
+        {
+            
 
-        //}
+
+        }
+     
     }
 }
     
