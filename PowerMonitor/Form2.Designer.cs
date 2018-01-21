@@ -68,6 +68,9 @@
             this.skinButton1 = new CCWin.SkinControl.SkinButton();
             this.skinChatRichTextBox1 = new CCWin.SkinControl.SkinChatRichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.skinLabel2 = new CCWin.SkinControl.SkinLabel();
             this.skinMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -162,33 +165,33 @@
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(134, 22);
+            this.Open.Size = new System.Drawing.Size(152, 22);
             this.Open.Text = "打开（&O）";
             this.Open.Click += new System.EventHandler(this.Open_Click);
             // 
             // Output
             // 
             this.Output.Name = "Output";
-            this.Output.Size = new System.Drawing.Size(134, 22);
+            this.Output.Size = new System.Drawing.Size(152, 22);
             this.Output.Text = "导出 ( &U )";
             // 
             // Printer
             // 
             this.Printer.Name = "Printer";
-            this.Printer.Size = new System.Drawing.Size(134, 22);
+            this.Printer.Size = new System.Drawing.Size(152, 22);
             this.Printer.Text = "打印（&P）";
             // 
             // Close
             // 
             this.Close.Name = "Close";
-            this.Close.Size = new System.Drawing.Size(134, 22);
+            this.Close.Size = new System.Drawing.Size(152, 22);
             this.Close.Text = "关闭 ( &C )";
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // 另存为ToolStripMenuItem
             // 
             this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
-            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.另存为ToolStripMenuItem.Text = "另存为";
             this.另存为ToolStripMenuItem.Click += new System.EventHandler(this.另存为ToolStripMenuItem_Click);
             // 
@@ -226,14 +229,14 @@
             // Calculate
             // 
             this.Calculate.Name = "Calculate";
-            this.Calculate.Size = new System.Drawing.Size(100, 22);
+            this.Calculate.Size = new System.Drawing.Size(152, 22);
             this.Calculate.Text = "计算";
             this.Calculate.Click += new System.EventHandler(this.Calculate_Click);
             // 
             // WiFi
             // 
             this.WiFi.Name = "WiFi";
-            this.WiFi.Size = new System.Drawing.Size(100, 22);
+            this.WiFi.Size = new System.Drawing.Size(152, 22);
             this.WiFi.Text = "设置";
             this.WiFi.Click += new System.EventHandler(this.WiFi_Click);
             // 
@@ -252,25 +255,25 @@
             // Data
             // 
             this.Data.Name = "Data";
-            this.Data.Size = new System.Drawing.Size(133, 22);
+            this.Data.Size = new System.Drawing.Size(152, 22);
             this.Data.Text = "数据（&D）";
             // 
             // Chart
             // 
             this.Chart.Name = "Chart";
-            this.Chart.Size = new System.Drawing.Size(133, 22);
+            this.Chart.Size = new System.Drawing.Size(152, 22);
             this.Chart.Text = "表格（&H）";
             // 
             // Predict
             // 
             this.Predict.Name = "Predict";
-            this.Predict.Size = new System.Drawing.Size(133, 22);
+            this.Predict.Size = new System.Drawing.Size(152, 22);
             this.Predict.Text = "预测（&P）";
             // 
             // PrintData
             // 
             this.PrintData.Name = "PrintData";
-            this.PrintData.Size = new System.Drawing.Size(133, 22);
+            this.PrintData.Size = new System.Drawing.Size(152, 22);
             this.PrintData.Text = "打印数据";
             // 
             // Mode
@@ -282,9 +285,9 @@
             this.Mode.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Mode.Location = new System.Drawing.Point(127, 663);
             this.Mode.Name = "Mode";
-            this.Mode.Size = new System.Drawing.Size(69, 17);
+            this.Mode.Size = new System.Drawing.Size(32, 17);
             this.Mode.TabIndex = 5;
-            this.Mode.Text = "skinLabel1";
+            this.Mode.Text = "状态";
             // 
             // skinLine1
             // 
@@ -377,6 +380,7 @@
             this.skinButton5.TabIndex = 21;
             this.skinButton5.Text = "停止";
             this.skinButton5.UseVisualStyleBackColor = false;
+            this.skinButton5.Click += new System.EventHandler(this.skinButton5_Click);
             // 
             // skinButton6
             // 
@@ -399,6 +403,7 @@
             this.skinButton6.TabIndex = 20;
             this.skinButton6.Text = "开始";
             this.skinButton6.UseVisualStyleBackColor = false;
+            this.skinButton6.Click += new System.EventHandler(this.skinButton6_Click);
             // 
             // skinButton7
             // 
@@ -421,6 +426,7 @@
             this.skinButton7.TabIndex = 19;
             this.skinButton7.Text = "初始化";
             this.skinButton7.UseVisualStyleBackColor = false;
+            this.skinButton7.Click += new System.EventHandler(this.skinButton7_Click);
             // 
             // chart2
             // 
@@ -476,6 +482,7 @@
             this.skinButton4.TabIndex = 21;
             this.skinButton4.Text = "停止";
             this.skinButton4.UseVisualStyleBackColor = false;
+            this.skinButton4.Click += new System.EventHandler(this.skinButton4_Click);
             // 
             // skinButton3
             // 
@@ -498,6 +505,7 @@
             this.skinButton3.TabIndex = 20;
             this.skinButton3.Text = "开始";
             this.skinButton3.UseVisualStyleBackColor = false;
+            this.skinButton3.Click += new System.EventHandler(this.skinButton3_Click);
             // 
             // skinButton2
             // 
@@ -520,13 +528,14 @@
             this.skinButton2.TabIndex = 19;
             this.skinButton2.Text = "初始化";
             this.skinButton2.UseVisualStyleBackColor = false;
+            this.skinButton2.Click += new System.EventHandler(this.skinButton2_Click);
             // 
             // chart1
             // 
             this.chart1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.chart1.Location = new System.Drawing.Point(6, 20);
+            this.chart1.Location = new System.Drawing.Point(12, 20);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(278, 193);
+            this.chart1.Size = new System.Drawing.Size(272, 193);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
             // 
@@ -563,12 +572,33 @@
             this.panel1.Size = new System.Drawing.Size(928, 568);
             this.panel1.TabIndex = 9;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // skinLabel2
+            // 
+            this.skinLabel2.AutoSize = true;
+            this.skinLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel2.BorderColor = System.Drawing.Color.White;
+            this.skinLabel2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel2.Location = new System.Drawing.Point(809, 663);
+            this.skinLabel2.Name = "skinLabel2";
+            this.skinLabel2.Size = new System.Drawing.Size(117, 17);
+            this.skinLabel2.TabIndex = 10;
+            this.skinLabel2.Text = "Powered By 刘招成";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(945, 687);
+            this.Controls.Add(this.skinLabel2);
             this.Controls.Add(this.skinLine1);
             this.Controls.Add(this.Mode);
             this.Controls.Add(this.Bar);
@@ -635,5 +665,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private CCWin.SkinControl.SkinLabel skinLabel1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
+        private CCWin.SkinControl.SkinLabel skinLabel2;
     }
 }
