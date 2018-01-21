@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreHandle", "PreHandle\PreH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerMonitor", "PowerMonitor\PowerMonitor.csproj", "{819DDB73-D269-4C81-988E-5F8D1F2A755C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lianxi", "lianxi\lianxi.csproj", "{641C01EA-7E6E-48E9-B136-00835E5496CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{819DDB73-D269-4C81-988E-5F8D1F2A755C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{819DDB73-D269-4C81-988E-5F8D1F2A755C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{819DDB73-D269-4C81-988E-5F8D1F2A755C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641C01EA-7E6E-48E9-B136-00835E5496CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

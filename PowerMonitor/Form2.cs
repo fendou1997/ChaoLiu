@@ -17,6 +17,7 @@ using System.Threading;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Diagnostics;
 
 namespace PowerMonitor
 {
@@ -27,6 +28,7 @@ namespace PowerMonitor
         public Form2()
         {
             InitializeComponent();
+
         }
         static int JieDian;//获得节点数
         /// <summary>
@@ -110,10 +112,12 @@ namespace PowerMonitor
             Form1 frm1 = new Form1(GetJieDian);
             frm1.Show();
         }
-        void GetJieDian(string str)
+       void GetJieDian(string str)
         {           
             JieDian = Convert.ToInt16(str);
             DTCreate(JieDian);
+            
+
         }
 
         List<CCWin.SkinControl.SkinTextBox> textboxlist = new List<CCWin.SkinControl.SkinTextBox> { };
@@ -123,11 +127,50 @@ namespace PowerMonitor
         List<CCWin.SkinControl.SkinLabel> skinlabellist1 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
         List<CCWin.SkinControl.SkinLabel> skinlabellist2 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
 
+        List<CCWin.SkinControl.SkinLabel> panellist1 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
+        List<CCWin.SkinControl.SkinLabel> panellist2 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
+        
+
         public void DTCreate(int JieDian)
         {
             int i;
             for ( i = 0; i < JieDian; i++)
             {
+
+                CCWin.SkinControl.SkinLabel panellabel1 = new CCWin.SkinControl.SkinLabel();
+                panellabel1.Name = "panellabel1" + i;
+                panellabel1.Parent = this;
+                panellabel1.Location = new System.Drawing.Point(5, 55 + i * 90);
+                panellabel1.Size = new System.Drawing.Size(69, 17);
+                panellabel1.Text = "节点" + (i + 1).ToString()+" U： ";
+                this.panel3.Controls.Add(panellabel1);
+
+                CCWin.SkinControl.SkinLabel panellabel2 = new CCWin.SkinControl.SkinLabel();
+                panellabel2.Name = "panellabel2" + i;
+                panellabel2.Parent = this;
+                panellabel2.Location = new System.Drawing.Point(169, 55 + i * 90);
+                panellabel2.Size = new System.Drawing.Size(69, 17);
+                panellabel2.Text = "∠";
+                this.panel3.Controls.Add(panellabel2);
+
+                CCWin.SkinControl.SkinLabel panellabel3 = new CCWin.SkinControl.SkinLabel();
+                panellabel3.Name = "panellabel3" + i;
+                panellabel3.Parent = this;
+                panellabel3.Location = new System.Drawing.Point(80, 55 + i * 90);
+                panellabel3.Size = new System.Drawing.Size(69, 17);
+                panellabel3.Text = "";
+                this.panel3.Controls.Add(panellabel3);
+                panellist1.Add(panellabel3);
+
+                CCWin.SkinControl.SkinLabel panellabel4 = new CCWin.SkinControl.SkinLabel();
+                panellabel4.Name = "panellabel4" + i;
+                panellabel4.Parent = this;
+                panellabel4.Location = new System.Drawing.Point(244, 55 + i * 90);
+                panellabel4.Size = new System.Drawing.Size(69, 17);
+                panellabel4.Text = "";
+                this.panel3.Controls.Add(panellabel4);
+                panellist2.Add(panellabel4);
+
                 //创建textBox
                 CCWin.SkinControl.SkinTextBox textbox = new CCWin.SkinControl.SkinTextBox();
                 textbox.Name = "textBoxZD" + i;
@@ -236,7 +279,9 @@ namespace PowerMonitor
             }
 
         }
+
         static int biaohao = 0;
+
         private void skinLabel_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -310,17 +355,132 @@ namespace PowerMonitor
         /// <param name="e"></param>
         private void skinButton_Click(object sender, EventArgs e)
         {
+            double[,] G1 = new double[JieDian, JieDian];//DP/U
+            double[,] B1 = new double[JieDian, JieDian];//DP/U
+            for (int i = 0; i < JieDian; i++)
+            {
+                for (int j = 0; j < JieDian; j++)
+                {
+                    G1[i, j] = G[i, j];
+                    B1[i, j] = B[i, j];
+                }
+            }
+            if (!System.IO.File.Exists("TestTxt.txt"))
+            {
+                FileStream fs1 = new FileStream("TestTxt.txt", FileMode.Create, FileAccess.Write);//创建写入文件 
+                StreamWriter sw = new StreamWriter(fs1);
+
+                for (int hh = 0; hh < textboxlist.Count; hh++)
+                {
+                    if (skincomboList[hh].Text == "PQ节点")
+                    {
+                        sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + textboxlist1[hh].Text);//开始写入值
+                    }
+                    else if (skincomboList[hh].Text == "PV节点")
+                    {
+                        sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "P(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + " " + "Q(" + (hh + 1).ToString() + ")=" + textboxlist1[hh].Text);//开始写入值
+                    }
+                    else
+                    {
+                        sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "U(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "∠" + textboxlist1[hh].Text);//开始写入值
+                    }
+                }
+
+
+                for (int i = 0; i < JieDian; i++)
+                {
+                    for (int j = 0; j < JieDian; j++)
+                    {
+                        
+                        
+                    }
+                }
+                
+
+
+
+                sw.Close();
+                fs1.Close();
+            }
+            else
+            {
+                FileStream fs = new FileStream("TestTxt.txt", FileMode.Open, FileAccess.Write);
+                StreamWriter sr = new StreamWriter(fs);
+
+                for (int hh = 0; hh < textboxlist.Count; hh++)
+                {
+                    if (skincomboList[hh].Text == "PQ节点")
+                    {
+                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + textboxlist1[hh].Text);//开始写入值
+                    }
+                    else if (skincomboList[hh].Text == "PV节点")
+                    {
+                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "P(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + " " + "Q(" + (hh + 1).ToString() + ")=" + textboxlist1[hh].Text);//开始写入值
+                    }
+                    else
+                    {
+                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "U(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "∠" + textboxlist1[hh].Text);//开始写入值
+                    }
+                }
+
+
+                for (int i = 0; i < JieDian; i++)
+                {
+                    for (int j = 0; j < JieDian; j++)
+                    {
+
+
+                    }
+                }
+
+
+
+
+                sr.Close();
+                fs.Close();
+
+            }
+            ProcessStartInfo psi = new ProcessStartInfo(@"E:\C#学习\ChaoLiu\PowerMonitor\bin\Debug\TestTxt.txt");
+            //创建进程对象
+            Process pro = new Process();
+            //告诉进程要打开的文件信息
+            pro.StartInfo = psi;
+            //调用函数打开
+            pro.Start();
+
+
+
 
         }
-        double[,] G = new double[JieDian, JieDian];
-        double[,] B = new double[JieDian, JieDian];
+        double[,] G = new double[100, 100];//DP/U
+        double[,] B = new double[100, 100];//DP/U
         public void ValueSend(List<double> list1, List<double> list2)
         {
-            
+          
+            for (int l = 0; l < list1.Count; l++)
+            {
+                G[biaohao, l]= list1[l];
+                B[biaohao, l] = list2[l];
 
+            }
+        }
+
+        private void Calculate_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Show();
+        }
+
+        private void WiFi_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Show();
+        }
+
+        private void skinLabel3_Click(object sender, EventArgs e)
+        {
 
         }
-     
     }
 }
     

@@ -53,6 +53,8 @@
             this.Mode = new CCWin.SkinControl.SkinLabel();
             this.skinLine1 = new CCWin.SkinControl.SkinLine();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.skinLabel1 = new CCWin.SkinControl.SkinLabel();
             this.skinGroupBox1 = new CCWin.SkinControl.SkinGroupBox();
             this.skinButton5 = new CCWin.SkinControl.SkinButton();
             this.skinButton6 = new CCWin.SkinControl.SkinButton();
@@ -68,6 +70,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.skinMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.skinGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.skinGroupBox3.SuspendLayout();
@@ -225,12 +228,14 @@
             this.Calculate.Name = "Calculate";
             this.Calculate.Size = new System.Drawing.Size(100, 22);
             this.Calculate.Text = "计算";
+            this.Calculate.Click += new System.EventHandler(this.Calculate_Click);
             // 
             // WiFi
             // 
             this.WiFi.Name = "WiFi";
             this.WiFi.Size = new System.Drawing.Size(100, 22);
-            this.WiFi.Text = "通信";
+            this.WiFi.Text = "设置";
+            this.WiFi.Click += new System.EventHandler(this.WiFi_Click);
             // 
             // Analyse
             // 
@@ -296,6 +301,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.skinGroupBox1);
             this.panel2.Controls.Add(this.skinGroupBox3);
             this.panel2.Controls.Add(this.skinButton1);
@@ -304,6 +310,27 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(931, 574);
             this.panel2.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.AutoScroll = true;
+            this.panel3.Controls.Add(this.skinLabel1);
+            this.panel3.Location = new System.Drawing.Point(7, 7);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(332, 561);
+            this.panel3.TabIndex = 25;
+            // 
+            // skinLabel1
+            // 
+            this.skinLabel1.AutoSize = true;
+            this.skinLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel1.BorderColor = System.Drawing.Color.White;
+            this.skinLabel1.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel1.Location = new System.Drawing.Point(3, 9);
+            this.skinLabel1.Name = "skinLabel1";
+            this.skinLabel1.Size = new System.Drawing.Size(107, 26);
+            this.skinLabel1.TabIndex = 0;
+            this.skinLabel1.Text = "计算结果：";
             // 
             // skinGroupBox1
             // 
@@ -546,8 +573,8 @@
             this.Controls.Add(this.Mode);
             this.Controls.Add(this.Bar);
             this.Controls.Add(this.skinMenuStrip1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.skinMenuStrip1;
             this.Name = "Form2";
@@ -556,6 +583,8 @@
             this.skinMenuStrip1.ResumeLayout(false);
             this.skinMenuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.skinGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.skinGroupBox3.ResumeLayout(false);
@@ -604,5 +633,7 @@
         private CCWin.SkinControl.SkinButton skinButton1;
         private CCWin.SkinControl.SkinChatRichTextBox skinChatRichTextBox1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private CCWin.SkinControl.SkinLabel skinLabel1;
     }
 }
