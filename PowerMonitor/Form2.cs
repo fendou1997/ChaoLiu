@@ -347,7 +347,7 @@ namespace PowerMonitor
 
         private void Form2_Load(object sender, EventArgs e)
         {
-           
+            
         }
         /// <summary>
         /// 打开文本文档获得数据，生成文件
@@ -469,7 +469,10 @@ namespace PowerMonitor
         private void Calculate_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
+            Mode.Text = "正忙";
             CalculateEngine.Calculate.abc();
+            Mode.Text = "计算完成！";
+            
             panel2.Show();
         }
      

@@ -608,7 +608,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.skinMenuStrip1;
             this.Name = "Form2";
-            this.Text = "潮流计算(V1.0.0)";
+            this.Text = "潮流计算(V0.0.1)";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.skinMenuStrip1.ResumeLayout(false);
             this.skinMenuStrip1.PerformLayout();

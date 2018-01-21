@@ -14,46 +14,106 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
         {
           
             string strFilePath = @"C:\Users\Administrator\Desktop\Input.txt";
-            
+            int leaf=0;
+            int leaf1 = 0;
             string[] contents = File.ReadAllLines(strFilePath, Encoding.UTF8);
             string balance=null;
             List<string> tempList1 = new List<string> { };
             List<string> tempList2 = new List<string> { };
             List<string> tempList3 = new List<string> { };
+            List<int> tem1 = new List<int> { };
+            List<int> tem2 = new List<int> { };
+            int bal = 0;
+            string[,] Daona = new string[100,100];
+
             #region 读取
             using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Read))
             {        
                 StreamReader read = new StreamReader(fsRead, Encoding.UTF8);
                 string strReadline;
-               
-                while ((strReadline = read.ReadLine()) != null)
+                
+                for  (int i=0; (strReadline = read.ReadLine()) != null;i++)
                 {
                     string[] temp = strReadline.Split(new char[] { '，', '：' }, StringSplitOptions.RemoveEmptyEntries);
-                    switch (temp[1])
+                    if (temp.Length >= 2)
                     {
-                        case "PQ节点":
+                        if (temp[1] == "PQ节点")
+                        {
                             tempList1.Add(strReadline);
-                            break;
-
-                        case "PV节点":
+                            tem1.Add(i);
+                        }
+                        else if (temp[1] == "PV节点")
+                        {
                             tempList2.Add(strReadline);
-                            break;
-                        case "平衡节点":
+                            tem2.Add(i);
+                        }
+                        else if (temp[1] == "平衡节点")
+                        {
                             balance = strReadline;
-                            break;
-                        default:
-                            tempList3.Add(strReadline);
-                            break;
+                            bal = i;
+                        }
+                    }
+                    else
+                    {
+                        if (temp[0] == "导纳矩阵")
+                        {
+                            leaf = i;
+                        }
+                        else
+                        {
+                            string[] daona = strReadline.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            for (int jj = 0; jj < daona.Length; jj++)
+                            {
+                                Daona[i-leaf-1, jj] = daona[jj];
+                            }
+                            leaf1 = daona.Length;
 
 
-                    }    
+                        }
+                    }
+                     
+                     
                     // strReadline即为按照行读取的字符串
                 }
-                
+                string[,] Biaozhun = new string[leaf, leaf];
+                for (int n = 0; n < leaf; n++)
+                {
+                    for (int m = 0; m < leaf; m++)
+                    {
+                        Biaozhun[n, m] = Daona[n, m];
+                    }
+                }
+                string[,] finalBiaozhun = new string[leaf , leaf ];
+                string[,] finalBiaozhun1 = new string[leaf, leaf];
+                for (int g = 0; g < tem2.Count; g++)
+                {
+                    tem1.Add(tem2[g]);
+                }
+                tem1.Add(bal);
+              
+                for (int t = 0; t < tem1.Count; t++)
+                {
+                  
+                    for (int x = 0; x < tem1.Count; x++)
+                    {
+                        finalBiaozhun[t, x] = Biaozhun[tem1[t], x];
+                    }
+
+                }
+                for (int hh = 0; hh < tem1.Count; hh++)
+                {
+
+                    for (int x = 0; x < tem1.Count; x++)
+                    {
+                        finalBiaozhun1[x, hh] = finalBiaozhun[x, tem1[hh]];
+                    }
+
+                }
                 tempList1.CopyTo(contents);
                 tempList2.CopyTo(contents, tempList1.Count );
                 tempList3.CopyTo(contents, tempList1.Count  + tempList2.Count+1);
                 contents[tempList1.Count + tempList2.Count] = balance;
+
                 read.Close();
                 fsRead.Close();
             }
