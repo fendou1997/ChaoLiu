@@ -71,6 +71,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.skinLabel2 = new CCWin.SkinControl.SkinLabel();
+            this.skinButton8 = new CCWin.SkinControl.SkinButton();
             this.skinMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -229,14 +230,14 @@
             // Calculate
             // 
             this.Calculate.Name = "Calculate";
-            this.Calculate.Size = new System.Drawing.Size(152, 22);
+            this.Calculate.Size = new System.Drawing.Size(100, 22);
             this.Calculate.Text = "计算";
             this.Calculate.Click += new System.EventHandler(this.Calculate_Click);
             // 
             // WiFi
             // 
             this.WiFi.Name = "WiFi";
-            this.WiFi.Size = new System.Drawing.Size(152, 22);
+            this.WiFi.Size = new System.Drawing.Size(100, 22);
             this.WiFi.Text = "设置";
             this.WiFi.Click += new System.EventHandler(this.WiFi_Click);
             // 
@@ -304,6 +305,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.skinButton8);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.skinGroupBox1);
             this.panel2.Controls.Add(this.skinGroupBox3);
@@ -544,7 +546,7 @@
             this.skinButton1.BackColor = System.Drawing.Color.Transparent;
             this.skinButton1.ControlState = CCWin.SkinClass.ControlState.Normal;
             this.skinButton1.DownBack = null;
-            this.skinButton1.Location = new System.Drawing.Point(602, 530);
+            this.skinButton1.Location = new System.Drawing.Point(763, 530);
             this.skinButton1.MouseBack = null;
             this.skinButton1.Name = "skinButton1";
             this.skinButton1.NormlBack = null;
@@ -592,6 +594,20 @@
             this.skinLabel2.TabIndex = 10;
             this.skinLabel2.Text = "Powered By 刘招成";
             // 
+            // skinButton8
+            // 
+            this.skinButton8.BackColor = System.Drawing.Color.Transparent;
+            this.skinButton8.ControlState = CCWin.SkinClass.ControlState.Normal;
+            this.skinButton8.DownBack = null;
+            this.skinButton8.Location = new System.Drawing.Point(474, 530);
+            this.skinButton8.MouseBack = null;
+            this.skinButton8.Name = "skinButton8";
+            this.skinButton8.NormlBack = null;
+            this.skinButton8.Size = new System.Drawing.Size(75, 23);
+            this.skinButton8.TabIndex = 26;
+            this.skinButton8.Text = "开始计算";
+            this.skinButton8.UseVisualStyleBackColor = false;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -603,8 +619,8 @@
             this.Controls.Add(this.Mode);
             this.Controls.Add(this.Bar);
             this.Controls.Add(this.skinMenuStrip1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.skinMenuStrip1;
             this.Name = "Form2";
@@ -668,5 +684,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private CCWin.SkinControl.SkinLabel skinLabel2;
+        private CCWin.SkinControl.SkinButton skinButton8;
     }
 }

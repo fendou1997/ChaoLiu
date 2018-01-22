@@ -387,24 +387,40 @@ namespace PowerMonitor
                     }
                 }
 
+                sw.WriteLine("导纳矩阵：");
+                string ffa = null;
 
                 for (int i = 0; i < JieDian; i++)
                 {
                     for (int j = 0; j < JieDian; j++)
                     {
+                        if (B1[i, j] < 0)
+                        {
+                            string[] templ = B1[i, j].ToString().Split(new char[] { '-' });
+                            ffa = ffa + G1[i, j] + "-"+"j"+ templ[0];
+
+
+                        }
+                        else
+                        {
+                            string[] templ = B1[i, j].ToString().Split(new char[] { '+' });
+                            ffa = ffa + G1[i, j] + "+"+"j" + templ[0];
+                        }
                         
-                        
+                         sw.WriteLine(ffa);
                     }
+
                 }
-                
 
 
 
+               
                 sw.Close();
                 fs1.Close();
             }
             else
             {
+                System.IO.File.WriteAllText("TestTxt.txt", "");
                 FileStream fs = new FileStream("TestTxt.txt", FileMode.Open, FileAccess.Write);
                 StreamWriter sr = new StreamWriter(fs);
 
@@ -423,20 +439,33 @@ namespace PowerMonitor
                         sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "U(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "∠" + textboxlist1[hh].Text);//开始写入值
                     }
                 }
-
-
+               sr.WriteLine("导纳矩阵：");
+                string ffa = null;
                 for (int i = 0; i < JieDian; i++)
                 {
                     for (int j = 0; j < JieDian; j++)
                     {
+                        if (B1[i, j] < 0)
+                        {
+                            string[] templ = B1[i, j].ToString().Split(new char[] { '-' });
+                            ffa = ffa + G1[i, j] + "-" + "j" + templ[0];
+
+
+                        }
+                        else
+                        {
+                            string[] templ = B1[i, j].ToString().Split(new char[] { '+' });
+                            ffa = ffa + G1[i, j] + "+" + "j" + templ[0];
+                        }
 
 
                     }
+                    sr.WriteLine(ffa);
                 }
 
 
-
-
+                
+              
                 sr.Close();
                 fs.Close();
 
@@ -470,7 +499,7 @@ namespace PowerMonitor
         {
             panel1.Visible = false;
             Mode.Text = "正忙";
-            CalculateEngine.Calculate.abc();
+            //CalculateEngine.Calculate.abc();
             Mode.Text = "计算完成！";
             
             panel2.Show();

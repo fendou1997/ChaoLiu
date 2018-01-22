@@ -13,77 +13,165 @@ namespace ChaoLiu
     {
         static void Main(string[] args)
         {
-            /*完成对于文件的输入与输出*/
             string strFilePath = @"C:\Users\Administrator\Desktop\Input.txt";
-
+            int leaf = 0;
+            int leaf1 = 0;
             string[] contents = File.ReadAllLines(strFilePath, Encoding.UTF8);
             string balance = null;
             List<string> tempList1 = new List<string> { };
             List<string> tempList2 = new List<string> { };
             List<string> tempList3 = new List<string> { };
+            List<int> tem1 = new List<int> { };
+            List<int> tem2 = new List<int> { };
+            int bal = 0;
+            string[,] Daona = new string[100, 100];
+
             #region 读取
-            using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Read))
+            FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Read);
+
+            StreamReader read = new StreamReader(fsRead, Encoding.UTF8);
+            string strReadline;
+
+            for (int ji = 0; (strReadline = read.ReadLine()) != null; ji++)
             {
-                StreamReader read = new StreamReader(fsRead, Encoding.UTF8);
-                string strReadline;
-
-                while ((strReadline = read.ReadLine()) != null)
+                string[] temp = strReadline.Split(new char[] { '，', '：' }, StringSplitOptions.RemoveEmptyEntries);
+                if (temp.Length > 2)
                 {
-                    string[] temp = strReadline.Split(new char[] { '，', '：' }, StringSplitOptions.RemoveEmptyEntries);
-                    switch (temp[1])
+                    if (temp[1] == "PQ节点")
                     {
-                        case "PQ节点":
-                            tempList1.Add(strReadline);
-                            break;
-
-                        case "PV节点":
-                            tempList2.Add(strReadline);
-                            break;
-                        case "平衡节点":
-                            balance = strReadline;
-                            break;
-                        default:
-                            tempList3.Add(strReadline);
-                            break;
+                        tempList1.Add(strReadline);
+                        tem1.Add(ji);
+                    }
+                    else if (temp[1] == "PV节点")
+                    {
+                        tempList2.Add(strReadline);
+                        tem2.Add(ji);
+                    }
+                    else if (temp[1] == "平衡节点")
+                    {
+                        balance = strReadline;
+                        bal = ji;
+                    }
+                }
+                else
+                {
+                    if (temp[0] == "导纳矩阵")
+                    {
+                        leaf = ji;
+                    }
+                    else
+                    {
+                        string[] daona = strReadline.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        for (int jj = 0; jj < daona.Length; jj++)
+                        {
+                            Daona[ji - leaf - 1, jj] = daona[jj];
+                        }
+                        leaf1 = daona.Length;
 
 
                     }
-                    // strReadline即为按照行读取的字符串
                 }
 
-                tempList1.CopyTo(contents);
-                tempList2.CopyTo(contents, tempList1.Count);
-                tempList3.CopyTo(contents, tempList1.Count + tempList2.Count + 1);
-                contents[tempList1.Count + tempList2.Count] = balance;
-                read.Close();
-                fsRead.Close();
+
+                // strReadline即为按照行读取的字符串
+            }
+            string[,] Biaozhun = new string[leaf, leaf];
+            for (int n = 0; n < leaf; n++)
+            {
+                for (int m = 0; m < leaf; m++)
+                {
+                    Biaozhun[n, m] = Daona[n, m];
+                }
+            }
+            string[,] finalBiaozhun = new string[leaf, leaf];
+            string[,] finalBiaozhun1 = new string[leaf, leaf];
+            for (int g = 0; g < tem2.Count; g++)
+            {
+                tem1.Add(tem2[g]);
+            }
+            tem1.Add(bal);
+
+            for (int t = 0; t < tem1.Count; t++)
+            {
+
+                for (int x = 0; x < tem1.Count; x++)
+                {
+                    finalBiaozhun[t, x] = Biaozhun[tem1[t], x];
+                }
+
+            }
+            for (int hh = 0; hh < tem1.Count; hh++)
+            {
+
+                for (int x = 0; x < tem1.Count; x++)
+                {
+                    finalBiaozhun1[x, hh] = finalBiaozhun[x, tem1[hh]];
+                }
+
+            }
+            string[] neirong = new string[tempList1.Count + tempList2.Count + 2];
+
+            tempList1.CopyTo(neirong);
+            tempList2.CopyTo(neirong, tempList1.Count);
+            neirong[tempList1.Count + tempList2.Count + 1] = "导纳矩阵：";
+            neirong[tempList1.Count + tempList2.Count] = balance;
+
+            for (int hh = 0; hh < leaf; hh++)
+            {
+                for (int mm = 0; mm < leaf; mm++)
+                {
+                    neirong[tempList1.Count + tempList2.Count + 1] = neirong[tempList1.Count + tempList2.Count + 1] + "  " + finalBiaozhun1[hh, mm];
+                }
+
             }
 
-            #endregion
+            read.Close();
+            fsRead.Close();
 
+
+            #endregion
             #region 写入
-            using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Write))
+            string strFilePath1 = @"C:\Users\Administrator\Desktop\Input1.txt";
+            if (!System.IO.File.Exists(strFilePath1))
             {
-                StreamWriter sw = new StreamWriter(fsRead);
-                for (int l = 0; l < contents.Length; l++)
+                FileStream fs1 = new FileStream(strFilePath1, FileMode.Create, FileAccess.Write);//创建写入文件 
+                StreamWriter sw = new StreamWriter(fs1);
+                for (int jji = 0; jji < neirong.Length; jji++)
                 {
-                    sw.WriteLine(contents[l]);
+                    sw.WriteLine(neirong[jji]);
                 }
 
                 sw.Close();
                 fsRead.Close();
+            }
+            else
+            {
+                File.WriteAllText(strFilePath, "");
+                FileStream fs = new FileStream(strFilePath, FileMode.Open, FileAccess.Write);
 
+                StreamWriter sr = new StreamWriter(fs);
+                for (int jji = 0; jji < neirong.Length; jji++)
+                {
+                    sr.WriteLine(neirong[jji]);
+                }
+
+                sr.Close();
+                fs.Close();
             }
 
+
+
+
             #endregion
-           
+
             //string fileName = @"C:\Users\Administrator\Desktop\Input.txt";
             //string[] contents = File.ReadAllLines(fileName, Encoding.UTF8);
             List<Data> list = new List<Data> { };//创建一个泛型集合,创建PQ，PV，以及平衡节点
-            DataGet(contents, list);
+            string[] contents1 = File.ReadAllLines(strFilePath, Encoding.UTF8);
+            DataGet(contents1, list);
             double[,] G = new double[list.Count, list.Count];
             double[,] B = new double[list.Count, list.Count];
-            NetExpand(contents, list,B,G);
+            NetExpand(contents1, list,B,G);
             double eps = 0.0001;int j=0;int i = list.Count - 1;int sumPV = 0;
             foreach (var item in list)
             {

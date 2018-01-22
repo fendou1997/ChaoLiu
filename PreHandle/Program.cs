@@ -27,8 +27,8 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
             string[,] Daona = new string[100,100];
 
             #region 读取
-            using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Read))
-            {        
+            FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Read);
+                    
                 StreamReader read = new StreamReader(fsRead, Encoding.UTF8);
                 string strReadline;
                 
@@ -109,23 +109,35 @@ namespace PreHandle//用于对文本文档进行处理达到标准化
                     }
 
                 }
-                tempList1.CopyTo(contents);
-                tempList2.CopyTo(contents, tempList1.Count );
-                tempList3.CopyTo(contents, tempList1.Count  + tempList2.Count+1);
-                contents[tempList1.Count + tempList2.Count] = balance;
+                string[] neirong = new string[tempList1.Count + tempList2.Count+2];
 
+                tempList1.CopyTo(neirong);
+                tempList2.CopyTo(neirong, tempList1.Count );
+                neirong[tempList1.Count + tempList2.Count + 1] = "导纳矩阵：";
+                neirong[tempList1.Count + tempList2.Count] = balance;
+
+                for (int hh = 0; hh < leaf; hh++)
+                {
+                    for (int mm = 0; mm < leaf; mm++)
+                    {
+                        neirong[tempList1.Count + tempList2.Count + 1] = neirong[tempList1.Count + tempList2.Count + 1] + "  " + finalBiaozhun1[hh, mm];
+                    }
+
+                }
+                
                 read.Close();
                 fsRead.Close();
-            }
+            
 
             #endregion
             #region 写入
-            using (FileStream fsRead = new FileStream(strFilePath, FileMode.Open, FileAccess.Write))
+            string strFilePath1 = @"C:\Users\Administrator\Desktop\Input1.txt";
+            using (FileStream fsRead1 = new FileStream(strFilePath1, FileMode.Open, FileAccess.Write))
             {
-                StreamWriter sw = new StreamWriter(fsRead);
-                for (int i = 0; i < contents.Length; i++)
+                StreamWriter sw = new StreamWriter(fsRead1);
+                for (int i = 0; i < neirong.Length; i++)
                 {
-                    sw.WriteLine(contents[i]);
+                    sw.WriteLine(neirong[i]);
                 }
 
                 sw.Close();
