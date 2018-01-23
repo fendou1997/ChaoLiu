@@ -26,8 +26,12 @@ namespace PowerMonitor
             InitializeComponent();
         }
         List<CCWin.SkinControl.SkinTextBox> list1 = new List<CCWin.SkinControl.SkinTextBox> { };
+        List<CCWin.SkinControl.SkinTextBox> Yt = new List<CCWin.SkinControl.SkinTextBox> { };
+        List<CCWin.SkinControl.SkinTextBox> Yt1 = new List<CCWin.SkinControl.SkinTextBox> { };
         List<CCWin.SkinControl.SkinComboBox> list2 = new List<CCWin.SkinControl.SkinComboBox> { };
+        List<CCWin.SkinControl.SkinComboBox> list4 = new List<CCWin.SkinControl.SkinComboBox> { };//变压器
         List<System.Windows.Forms.CheckBox> list3 = new List<System.Windows.Forms.CheckBox> { };
+
         private void Form3_Load(object sender, EventArgs e)
         {
             int i;
@@ -58,6 +62,72 @@ namespace PowerMonitor
                     this.skinPanel1.Controls.Add(combo);
                     list2.Add(combo);
 
+                    CCWin.SkinControl.SkinLabel hhh = new CCWin.SkinControl.SkinLabel();
+                    hhh.Name = "formcomm" + (i + 1).ToString();
+                    hhh.Parent = this;
+                    hhh.Location = new System.Drawing.Point(453, 55 + i * 90);
+                    hhh.Size = new System.Drawing.Size(69, 17);
+                    hhh.Visible = true;
+                    hhh.Text = "变压器" + (i + 1).ToString();
+                    this.skinPanel1.Controls.Add(hhh);
+
+                    CCWin.SkinControl.SkinLabel hhh1 = new CCWin.SkinControl.SkinLabel();
+                    hhh1.Name = "formm" + (i + 1).ToString();
+                    hhh1.Parent = this;
+                    hhh1.Location = new System.Drawing.Point(667-30, 55 + i * 90);
+                    hhh1.Size = new System.Drawing.Size(39, 17);
+                    hhh1.Visible = true;
+                    hhh1.Text = "Gt*" + (i + 1).ToString();
+                    this.skinPanel1.Controls.Add(hhh1);
+                    CCWin.SkinControl.SkinLabel hhh2 = new CCWin.SkinControl.SkinLabel();
+                    hhh2.Name = "formm" + (i + 1).ToString();
+                    hhh2.Parent = this;
+                    hhh2.Location = new System.Drawing.Point(667 +90, 55 + i * 90);
+                    hhh2.Size = new System.Drawing.Size(39, 17);
+                    hhh2.Visible = true;
+                    hhh2.Text = "Bt*" + (i + 1).ToString();
+                    this.skinPanel1.Controls.Add(hhh2);
+
+                    CCWin.SkinControl.SkinComboBox bianyaqi = new CCWin.SkinControl.SkinComboBox();
+                    bianyaqi.Name = "formcomm" + (i + 1).ToString();
+                    bianyaqi.Parent = this;
+                    bianyaqi.Location = new System.Drawing.Point(528, 55 + i * 90);
+                    bianyaqi.Size = new System.Drawing.Size(121-30, 28);
+                    bianyaqi.Visible = false;
+                    bianyaqi.Items.Add("1.05");
+                    bianyaqi.Items.Add("1.025");
+                    bianyaqi.Items.Add("0");
+                    bianyaqi.Items.Add("0.975");
+                    bianyaqi.Items.Add("0.95");
+                    bianyaqi.SelectedText = "0";
+                    this.skinPanel1.Controls.Add(bianyaqi);
+                    list4.Add(bianyaqi);
+
+
+                    CCWin.SkinControl.SkinTextBox textbox1 = new CCWin.SkinControl.SkinTextBox();
+                    textbox1.Name = "formtextBox1" + i;
+                    textbox1.Parent = this;
+                    textbox1.Location = new System.Drawing.Point(764-30-10-30-10, 55 + i * 90);
+                    textbox1.Size = new System.Drawing.Size(59, 28);
+                    textbox1.Text = "";
+                    textbox1.Visible = false;
+
+                    this.skinPanel1.Controls.Add(textbox1);
+                    Yt.Add(textbox1);
+
+                    CCWin.SkinControl.SkinTextBox textbox2 = new CCWin.SkinControl.SkinTextBox();
+                    textbox2.Name = "formtextBox1" + i;
+                    textbox2.Parent = this;
+                    textbox2.Location = new System.Drawing.Point(764 - 30 - 10 - 30 - 10+140, 55 + i * 90);
+                    textbox2.Size = new System.Drawing.Size(59, 28);
+                    textbox2.Text = "";
+                    textbox2.Visible = false;
+
+                    this.skinPanel1.Controls.Add(textbox2);
+                    Yt1.Add(textbox2);
+
+
+
                     System.Windows.Forms.CheckBox radiobox = new System.Windows.Forms.CheckBox();
                     radiobox.Name = "formRadioBox" + i;
                     radiobox.Parent = this;
@@ -84,8 +154,46 @@ namespace PowerMonitor
                 else
 
                 {
+                    CCWin.SkinControl.SkinComboBox bianyaqi = new CCWin.SkinControl.SkinComboBox();
+                    bianyaqi.Name = "formcomm" + (i + 1).ToString();
+                    bianyaqi.Parent = this;
+                    bianyaqi.Location = new System.Drawing.Point(528, 55 + i * 90);
+                    bianyaqi.Size = new System.Drawing.Size(121-30, 28);
+                    bianyaqi.Visible = false;
+                    bianyaqi.Items.Add("1.05");
+                    bianyaqi.Items.Add("1.025");
+                    bianyaqi.Items.Add("0");
+                    bianyaqi.Items.Add("0.975");
+                    bianyaqi.Items.Add("0.95");
+                    bianyaqi.SelectedText = "0";
+                    bianyaqi.Enabled = false;
+                    this.skinPanel1.Controls.Add(bianyaqi);
+                    list4.Add(bianyaqi);
+
+                    CCWin.SkinControl.SkinTextBox textbox1 = new CCWin.SkinControl.SkinTextBox();
+                    textbox1.Name = "formtextBox1" + i;
+                    textbox1.Parent = this;
+                    textbox1.Location = new System.Drawing.Point(764-30-10-30-10, 55 + i * 90);
+                    textbox1.Size = new System.Drawing.Size(59, 28);
+                    textbox1.Text = "";
+                    textbox1.Visible = false;
+                    textbox1.Enabled = false;
+                    this.skinPanel1.Controls.Add(textbox1);
+                    Yt.Add(textbox1);
+                    CCWin.SkinControl.SkinTextBox textbox2 = new CCWin.SkinControl.SkinTextBox();
+                    textbox2.Name = "formtextBox1" + i;
+                    textbox2.Parent = this;
+                    textbox2.Location = new System.Drawing.Point(764 - 30 - 10 - 30 - 10 + 140, 55 + i * 90);
+                    textbox2.Size = new System.Drawing.Size(59, 28);
+                    textbox2.Text = "";
+                    textbox2.Visible = false;
+                    textbox1.Enabled = false;
+                    this.skinPanel1.Controls.Add(textbox2);
+                    Yt1.Add(textbox2);
+
+
                     CCWin.SkinControl.SkinTextBox textbox = new CCWin.SkinControl.SkinTextBox();
-                    textbox.Name = "formtextBox" + i;
+                    textbox.Name = "formteooxtBox" + i;
                     textbox.Parent = this;
                     textbox.Location = new System.Drawing.Point(310, 49 + i * 90);
                     textbox.Size = new System.Drawing.Size(121, 30);
@@ -129,7 +237,7 @@ namespace PowerMonitor
             CCWin.SkinControl.SkinButton button = new CCWin.SkinControl.SkinButton();
             button.Name = "formBox";
             button.Parent = this;
-            button.Location = new System.Drawing.Point(202, 44 + i * 90);
+            button.Location = new System.Drawing.Point(202+100*2, 44 + i * 90);
             button.Size = new System.Drawing.Size(75, 23);
             button.Text = "确认";
            
@@ -162,18 +270,65 @@ namespace PowerMonitor
             {
                 list1[i].Visible = true;
                 list2[i].Visible = true;
+                list4[i].Visible = true;
+                Yt[i].Visible = true;
+                Yt1[i].Visible = true;
+                Yt[no].Visible = false;
+                Yt1[no].Visible = false;
+                list4[no].Visible = false;
             }
             else
             {
                 list1[i].Visible = false;
                 list2[i].Visible = false;
-
+                list4[i].Visible = false;
+                Yt[i].Visible = false;
+                Yt1[i].Visible = false;
             }
 
 
 
         }
+        public void YtCreate(double []G,double[]B)
+        {
+            for (int i = 0; i < Yt.Count; i++)
+            {
+                if (Yt[i].Text == "")
+                {
+                    Yt[i].Text = 0.ToString();
+                }                
+            }
+            double[] DG = new double[Yt.Count];
+            double[] DB = new double[Yt.Count];
+            double sum1 = 0;
+            for (int i = 0; i < Yt.Count; i++)
+            {
+                if (i != no&& (list4[i].Text.Trim())!=null&& Convert.ToDouble(list4[i].Text.Trim())!=0)
+                {
+                    DG[i] = -Convert.ToDouble(Yt[i].Text.Trim()) * (1 / Convert.ToDouble(list4[i].Text.Trim()) - 1);               
+                    sum1=sum1 +Convert.ToDouble(Yt[i].Text.Trim()) * (1 / Convert.ToDouble(list4[i].Text.Trim())* Convert.ToDouble(list4[i].Text.Trim()) - 1);
 
+                }
+            }
+            double sum2 = 0;
+            for (int i = 0; i < Yt1.Count; i++)
+            {
+                if (i != no && Convert.ToDouble(list4[i].Text.Trim()) != 0)
+                {
+                    DB[i] = -Convert.ToDouble(Yt1[i].Text.Trim()) * (1 / Convert.ToDouble(list4[i].Text.Trim()) - 1);
+                    sum2 = sum2 + Convert.ToDouble(Yt1[i].Text.Trim()) * (1 / Convert.ToDouble(list4[i].Text.Trim()) * Convert.ToDouble(list4[i].Text.Trim()) - 1);
+
+                }
+            }
+            DB[no] = sum2;
+
+            for (int i = 0; i < Yt.Count; i++)
+            {
+                G[i] = G[i] + DG[i];
+                B[i] = B[i] + DB[i];
+            }
+
+        }
         private void skinButton_Click(object sender, EventArgs e)
         {
             
@@ -181,15 +336,15 @@ namespace PowerMonitor
                 List<double> list11 = new List<double> { };
                 List<double> list12 = new List<double> { };
 
-                for (int i = 0; i < list2.Count; i++)
-                {
-                    double Re;
-                    double Im;
-                    string xubu = null;
-                    string shibu = null;
-                    string temp = null;
-                    string[] tempzu;
-                if (list3[i].Checked==true && list1[i].Text != "" && list1[i].Text != " " )
+            for (int i = 0; i < list2.Count; i++)
+            {
+                double Re;
+                double Im;
+                string xubu = null;
+                string shibu = null;
+                string temp = null;
+                string[] tempzu;
+                if (list3[i].Checked == true && list1[i].Text != "" && list1[i].Text != " ")
                 {
                     temp = list1[i].Text.ToString();
                     tempzu = temp.Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
@@ -220,19 +375,27 @@ namespace PowerMonitor
 
                     }
 
+
+
                     list11.Add(Re);
                     list12.Add(Im);
                 }
-                else if (list3[i].Checked==false)
+                else
                 {
                     list11.Add(0);
                     list12.Add(0);
                 }
-              
-                
 
-                }
-                Valuelist(list11, list12);
+
+
+            }
+            double[] G = new double[list11.Count];
+            double[] B = new double[list12.Count];
+            G = list11.ToArray();
+            B = list12.ToArray();
+            YtCreate(G, B);
+            
+            Valuelist(G.ToList(), B.ToList());
 
 
                 this.Close();

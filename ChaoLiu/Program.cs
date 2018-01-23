@@ -249,14 +249,146 @@ namespace ChaoLiu
                     B2[jj, jjj] = B[jj, jjj];
                 }
             }
+            List<double> duList = new List<double> { };
+            List<double> dtheraList = new List<double> { };
 
-            MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2);
+            MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2, duList, dtheraList);
+
+            #region 写入
+            string logSave = @"C:\Users\Administrator\Desktop\Input0.txt";
+            if (!System.IO.File.Exists(logSave))
+            {
+                FileStream fs1 = new FileStream(logSave, FileMode.Create, FileAccess.Write);//创建写入文件 
+                StreamWriter sw = new StreamWriter(fs1);
+                sw.WriteLine("----------------G矩阵------------------");
+                for (int nu = 0; nu <Math.Sqrt(G.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
+                    {
+                        tempo = tempo + G[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
+                    {
+                        tempo = tempo + B[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B1矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B1.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
+                    {
+                        tempo = tempo + B1[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B2矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B2.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
+                    {
+                        tempo = tempo + B2[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+              
+                sw.WriteLine("----------------U矩阵------------------");
+                for (int nu = 0; nu <(U.Length); nu++)
+                {
+                    sw.WriteLine(U[nu]);                 
+                }
+                sw.WriteLine("----------------Thera矩阵------------------");
+                for (int nu = 0; nu < (thera.Length); nu++)
+                {
+                    sw.WriteLine(thera[nu]);
+                }
+                sw.Close();
+                fsRead.Close();
+            }
+            else
+            {
+                File.WriteAllText(logSave, "");
+                FileStream fs = new FileStream(logSave, FileMode.Open, FileAccess.Write);
+
+                StreamWriter sr = new StreamWriter(fs);
+                sr.WriteLine("----------------G矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(G.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
+                    {
+                        tempo = tempo + G[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
+                    {
+                        tempo = tempo + B[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B1矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B1.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
+                    {
+                        tempo = tempo + B1[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B2矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B2.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
+                    {
+                        tempo = tempo + B2[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+
+                sr.WriteLine("----------------U矩阵------------------");
+                for (int nu = 0; nu < (U.Length); nu++)
+                {
+                    sr.WriteLine(U[nu]);
+                }
+                sr.WriteLine("----------------Thera矩阵------------------");
+                for (int nu = 0; nu < (thera.Length); nu++)
+                {
+                    sr.WriteLine(thera[nu]);
+                }
+
+                sr.Close();
+                fs.Close();
+            }
+
+
+
+
+            #endregion
+
+
+
 
             Console.WriteLine("操作成功");
             
             Console.ReadKey();
         }
-        private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2)
+        private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2, List<double> duList, List<double> dtheraList)
         {
             //设置精度
 
@@ -294,10 +426,10 @@ namespace ChaoLiu
                 //判断精度
 
 
-                if (PanDuan(Dthera, eps) == Dthera.Length && PanDuan(DU, eps) == DU.Length)
+                if (PanDuan(DP, eps) == Dthera.Length && PanDuan(DQ, eps) == DU.Length)
                 {
-                    Console.WriteLine("shu");
-                    Console.WriteLine(h);
+                    //Console.WriteLine("shu");
+                    //Console.WriteLine(h);
                     break;
                 }
                 //修正
@@ -305,7 +437,18 @@ namespace ChaoLiu
                 {
                     U[c] = U[c] + DU[c];
                 }
-
+                double sum1 = 0;
+                for (int jjl = 0; jjl < DU.Length; jjl++)
+                {
+                    sum1 = sum1 + DU[jjl];
+                }
+                duList.Add(sum1);
+                double sum2 = 0;
+                for (int jjl = 0; jjl < Dthera.Length; jjl++)
+                {
+                    sum2 = sum2 + Dthera[jjl];
+                }
+                dtheraList.Add(sum2);
             }
         }
 

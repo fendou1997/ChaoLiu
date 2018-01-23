@@ -554,6 +554,7 @@
             this.skinButton1.TabIndex = 1;
             this.skinButton1.Text = "保存日志";
             this.skinButton1.UseVisualStyleBackColor = false;
+            this.skinButton1.Click += new System.EventHandler(this.skinButton1_Click);
             // 
             // skinChatRichTextBox1
             // 
@@ -607,6 +608,7 @@
             this.skinButton8.TabIndex = 26;
             this.skinButton8.Text = "开始计算";
             this.skinButton8.UseVisualStyleBackColor = false;
+            this.skinButton8.Click += new System.EventHandler(this.skinButton8_Click);
             // 
             // Form2
             // 

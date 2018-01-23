@@ -11,10 +11,9 @@ namespace CalculateEngine
 {
     public class Calculate
     {
-        public static void abc()
+       public  static void abc(List<double> duList, List<double> dtheraList,string str,double[] U11, double[] thera11,List<int> uuu)
         {
-            /*完成对于文件的输入与输出*/
-            string strFilePath = @"C:\Users\Administrator\Desktop\Input.txt";
+            string strFilePath =str;
             int leaf = 0;
             int leaf1 = 0;
             string[] contents = File.ReadAllLines(strFilePath, Encoding.UTF8);
@@ -22,7 +21,7 @@ namespace CalculateEngine
             List<string> tempList1 = new List<string> { };
             List<string> tempList2 = new List<string> { };
             List<string> tempList3 = new List<string> { };
-            List<int> tem1 = new List<int> { };
+            List<int> tem1 = uuu;
             List<int> tem2 = new List<int> { };
             int bal = 0;
             string[,] Daona = new string[100, 100];
@@ -36,7 +35,7 @@ namespace CalculateEngine
             for (int ji = 0; (strReadline = read.ReadLine()) != null; ji++)
             {
                 string[] temp = strReadline.Split(new char[] { '，', '：' }, StringSplitOptions.RemoveEmptyEntries);
-                if (temp.Length >= 2)
+                if (temp.Length > 2)
                 {
                     if (temp[1] == "PQ节点")
                     {
@@ -147,7 +146,7 @@ namespace CalculateEngine
             }
             else
             {
-                File.WriteAllText(strFilePath, "");              
+                File.WriteAllText(strFilePath, "");
                 FileStream fs = new FileStream(strFilePath, FileMode.Open, FileAccess.Write);
 
                 StreamWriter sr = new StreamWriter(fs);
@@ -159,19 +158,20 @@ namespace CalculateEngine
                 sr.Close();
                 fs.Close();
             }
-                
 
-            
+
+
 
             #endregion
 
             //string fileName = @"C:\Users\Administrator\Desktop\Input.txt";
             //string[] contents = File.ReadAllLines(fileName, Encoding.UTF8);
             List<Data> list = new List<Data> { };//创建一个泛型集合,创建PQ，PV，以及平衡节点
-            DataGet(contents, list);
+            string[] contents1 = File.ReadAllLines(strFilePath, Encoding.UTF8);
+            DataGet(contents1, list);
             double[,] G = new double[list.Count, list.Count];
             double[,] B = new double[list.Count, list.Count];
-            NetExpand(contents, list, B, G);
+            NetExpand(contents1, list, B, G);
             double eps = 0.0001; int j = 0; int i = list.Count - 1; int sumPV = 0;
             foreach (var item in list)
             {
@@ -185,8 +185,8 @@ namespace CalculateEngine
             double[] Q = new double[j];///
 
 
-            double[] U = new double[i];
-            double[] thera = new double[i];
+            double[] U = U11;
+            double[] thera = thera11;
 
             //U[0] = 1; U[1] = 1;
             //U[2] = 1;
@@ -249,11 +249,146 @@ namespace CalculateEngine
                     B2[jj, jjj] = B[jj, jjj];
                 }
             }
+            //List<double> duList = new List<double> { };
+            //List<double> dtheraList = new List<double> { };
 
-            MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2);
+            MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2, duList, dtheraList);
 
+            #region 写入
+            string logSave = @"C:\Users\Administrator\Desktop\Input0.txt";
+            if (!System.IO.File.Exists(logSave))
+            {
+                FileStream fs1 = new FileStream(logSave, FileMode.Create, FileAccess.Write);//创建写入文件 
+                StreamWriter sw = new StreamWriter(fs1);
+                sw.WriteLine("----------------G矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(G.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
+                    {
+                        tempo = tempo + G[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
+                    {
+                        tempo = tempo + B[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B1矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B1.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
+                    {
+                        tempo = tempo + B1[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------B2矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B2.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
+                    {
+                        tempo = tempo + B2[nu, nu1] + "      ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+
+                sw.WriteLine("----------------U矩阵------------------");
+                for (int nu = 0; nu < (U.Length); nu++)
+                {
+                    sw.WriteLine(U[nu]);
+                }
+                sw.WriteLine("----------------Thera矩阵------------------");
+                for (int nu = 0; nu < (thera.Length); nu++)
+                {
+                    sw.WriteLine(thera[nu]);
+                }
+                sw.Close();
+                fsRead.Close();
+            }
+            else
+            {
+                File.WriteAllText(logSave, "");
+                FileStream fs = new FileStream(logSave, FileMode.Open, FileAccess.Write);
+
+                StreamWriter sr = new StreamWriter(fs);
+                sr.WriteLine("----------------G矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(G.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
+                    {
+                        tempo = tempo + G[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
+                    {
+                        tempo = tempo + B[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B1矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B1.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
+                    {
+                        tempo = tempo + B1[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------B2矩阵------------------");
+                for (int nu = 0; nu < Math.Sqrt(B2.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
+                    {
+                        tempo = tempo + B2[nu, nu1] + "      ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+
+                sr.WriteLine("----------------U矩阵------------------");
+                for (int nu = 0; nu < (U.Length); nu++)
+                {
+                    sr.WriteLine(U[nu]);
+                }
+                sr.WriteLine("----------------Thera矩阵------------------");
+                for (int nu = 0; nu < (thera.Length); nu++)
+                {
+                    sr.WriteLine(thera[nu]);
+                }
+
+                sr.Close();
+                fs.Close();
+            }
+
+
+
+
+            #endregion
+
+
+
+
+            //Console.WriteLine("操作成功");
+
+            //Console.ReadKey();
         }
-        private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2)
+        private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2, List<double> duList, List<double> dtheraList)
         {
             //设置精度
 
@@ -291,10 +426,10 @@ namespace CalculateEngine
                 //判断精度
 
 
-                if (PanDuan(Dthera, eps) == Dthera.Length && PanDuan(DU, eps) == DU.Length)
+                if (PanDuan(DP, eps) == Dthera.Length && PanDuan(DQ, eps) == DU.Length)
                 {
-                    Console.WriteLine("shu");
-                    Console.WriteLine(h);
+                    //Console.WriteLine("shu");
+                    //Console.WriteLine(h);
                     break;
                 }
                 //修正
@@ -302,7 +437,18 @@ namespace CalculateEngine
                 {
                     U[c] = U[c] + DU[c];
                 }
-
+                double sum1 = 0;
+                for (int jjl = 0; jjl < DU.Length; jjl++)
+                {
+                    sum1 = sum1 + DU[jjl];
+                }
+                duList.Add(sum1 / DU.Length);
+                double sum2 = 0;
+                for (int jjl = 0; jjl < Dthera.Length; jjl++)
+                {
+                    sum2 = sum2 + Dthera[jjl];
+                }
+                dtheraList.Add(sum2 / Dthera.Length);
             }
         }
 

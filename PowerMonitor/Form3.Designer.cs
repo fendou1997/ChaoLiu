@@ -44,7 +44,7 @@
             this.skinPanel1.MouseBack = null;
             this.skinPanel1.Name = "skinPanel1";
             this.skinPanel1.NormlBack = null;
-            this.skinPanel1.Size = new System.Drawing.Size(486, 368);
+            this.skinPanel1.Size = new System.Drawing.Size(920, 427);
             this.skinPanel1.TabIndex = 0;
             // 
             // skinLabel1
@@ -63,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 428);
+            this.ClientSize = new System.Drawing.Size(931, 490);
             this.Controls.Add(this.skinPanel1);
             this.Name = "Form3";
             this.Text = "Form3";

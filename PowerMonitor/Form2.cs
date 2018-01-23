@@ -39,13 +39,13 @@ namespace PowerMonitor
         /// <param name="e"></param>
         private void Open_Click(object sender, EventArgs e)
         {
-            string strFilePath = OpenFile();
+            string strFilePath = OpenFile1();
         }
         /// <summary>
         /// 调用打开函数
         /// </summary>
         /// <returns></returns>
-        public string OpenFile()
+        public string OpenFile1()
     {
         string Name = "";
         OpenFileDialog Open1 = new OpenFileDialog();
@@ -92,7 +92,7 @@ namespace PowerMonitor
             Saveas.Title = "另存为";
             Saveas.InitialDirectory = Application.ExecutablePath;
             Saveas.RestoreDirectory = true;
-            Saveas.Filter = ".ncepu|*.ncepu";//设置文件的类型
+            Saveas.Filter = ".txt|*.txt";//设置文件的类型
             if (Saveas.ShowDialog() == DialogResult.OK)
             {
                 Name = Saveas.FileName;
@@ -129,8 +129,8 @@ namespace PowerMonitor
         List<CCWin.SkinControl.SkinLabel> skinlabellist2 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
 
         List<CCWin.SkinControl.SkinLabel> panellist1 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
-        List<CCWin.SkinControl.SkinLabel> panellist2 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
-        
+        List<CCWin.SkinControl.SkinLabel> panellist3 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
+
 
         public void DTCreate(int JieDian)
         {
@@ -143,34 +143,35 @@ namespace PowerMonitor
                 panellabel1.Parent = this;
                 panellabel1.Location = new System.Drawing.Point(5, 55 + i * 90);
                 panellabel1.Size = new System.Drawing.Size(69, 17);
-                panellabel1.Text = "节点" + (i + 1).ToString()+" U： ";
+                panellabel1.Text = "节点" + "   "+" U： ";
                 this.panel3.Controls.Add(panellabel1);
-
-                CCWin.SkinControl.SkinLabel panellabel2 = new CCWin.SkinControl.SkinLabel();
-                panellabel2.Name = "panellabel2" + i;
-                panellabel2.Parent = this;
-                panellabel2.Location = new System.Drawing.Point(169, 55 + i * 90);
-                panellabel2.Size = new System.Drawing.Size(69, 17);
-                panellabel2.Text = "∠";
-                this.panel3.Controls.Add(panellabel2);
+                panellist3.Add(panellabel1);
+                //CCWin.SkinControl.SkinLabel panellabel2 = new CCWin.SkinControl.SkinLabel();
+                //panellabel2.Name = "panellabel2" + i;
+                //panellabel2.Parent = this;
+                //panellabel2.Location = new System.Drawing.Point(169, 55 + i * 90);
+                //panellabel2.Size = new System.Drawing.Size(17, 17);
+                //panellabel2.Text = "∠";
+                //this.panel3.Controls.Add(panellabel2);
 
                 CCWin.SkinControl.SkinLabel panellabel3 = new CCWin.SkinControl.SkinLabel();
                 panellabel3.Name = "panellabel3" + i;
                 panellabel3.Parent = this;
                 panellabel3.Location = new System.Drawing.Point(80, 55 + i * 90);
-                panellabel3.Size = new System.Drawing.Size(69, 17);
+                panellabel3.Size = new System.Drawing.Size(200, 17);
                 panellabel3.Text = "";
                 this.panel3.Controls.Add(panellabel3);
                 panellist1.Add(panellabel3);
 
-                CCWin.SkinControl.SkinLabel panellabel4 = new CCWin.SkinControl.SkinLabel();
-                panellabel4.Name = "panellabel4" + i;
-                panellabel4.Parent = this;
-                panellabel4.Location = new System.Drawing.Point(244, 55 + i * 90);
-                panellabel4.Size = new System.Drawing.Size(69, 17);
-                panellabel4.Text = "";
-                this.panel3.Controls.Add(panellabel4);
-                panellist2.Add(panellabel4);
+                //CCWin.SkinControl.SkinLabel panellabel4 = new CCWin.SkinControl.SkinLabel();
+                //panellabel4.Name = "panellabel4" + i;
+                //panellabel4.Parent = this;
+                //panellabel4.Location = new System.Drawing.Point(200, 55 + i * 90);
+                //panellabel4.Size = new System.Drawing.Size(200, 17);
+                //panellabel4.Text = "1";
+                //panellabel4.Visible = true;
+                //this.panel3.Controls.Add(panellabel4);
+                //panellist2.Add(panellabel4);
 
                 //创建textBox
                 CCWin.SkinControl.SkinTextBox textbox = new CCWin.SkinControl.SkinTextBox();
@@ -375,7 +376,17 @@ namespace PowerMonitor
                 {
                     if (skincomboList[hh].Text == "PQ节点")
                     {
-                        sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + textboxlist1[hh].Text);//开始写入值
+
+                        if (Convert.ToDouble(textboxlist1[hh].Text.Trim()) < 0)
+                        {
+                            sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "-j" + -Convert.ToDouble(textboxlist1[hh].Text.Trim()));// 开始写入值
+
+                        }
+                        else
+                        {
+                            sw.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "+j" + textboxlist1[hh].Text);//开始写入值
+
+                        }
                     }
                     else if (skincomboList[hh].Text == "PV节点")
                     {
@@ -407,7 +418,7 @@ namespace PowerMonitor
                             ffa = ffa + G1[i, j] + "+"+"j" + templ[0];
                         }
                         
-                         sw.WriteLine(ffa);
+                         sw.WriteLine(ffa+"     ");
                     }
 
                 }
@@ -428,11 +439,21 @@ namespace PowerMonitor
                 {
                     if (skincomboList[hh].Text == "PQ节点")
                     {
-                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + textboxlist1[hh].Text);//开始写入值
+
+                        if (Convert.ToDouble(textboxlist1[hh].Text.Trim()) < 0)
+                        {
+                            sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "-j" + -Convert.ToDouble(textboxlist1[hh].Text.Trim()));//开始写入值
+
+                        }
+                        else
+                        {
+                            sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "S(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + "+j" + textboxlist1[hh].Text);//开始写入值
+
+                        }
                     }
                     else if (skincomboList[hh].Text == "PV节点")
                     {
-                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "P(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + " " + "Q(" + (hh + 1).ToString() + ")=" + textboxlist1[hh].Text);//开始写入值
+                        sr.WriteLine("节点" + (hh + 1).ToString() + "：" + skincomboList[hh].Text + "，" + " " + "P(" + (hh + 1).ToString() + ")=" + textboxlist[hh].Text + " " + "U(" + (hh + 1).ToString() + ")=" + textboxlist1[hh].Text);//开始写入值
                     }
                     else
                     {
@@ -440,22 +461,23 @@ namespace PowerMonitor
                     }
                 }
                sr.WriteLine("导纳矩阵：");
-                string ffa = null;
+                
                 for (int i = 0; i < JieDian; i++)
                 {
+                    string ffa = null;
                     for (int j = 0; j < JieDian; j++)
                     {
                         if (B1[i, j] < 0)
                         {
-                            string[] templ = B1[i, j].ToString().Split(new char[] { '-' });
-                            ffa = ffa + G1[i, j] + "-" + "j" + templ[0];
+                            
+                            ffa = ffa + "       " + G1[i, j] + "-" + "j" +( -B1[i, j]).ToString();
 
 
                         }
                         else
                         {
-                            string[] templ = B1[i, j].ToString().Split(new char[] { '+' });
-                            ffa = ffa + G1[i, j] + "+" + "j" + templ[0];
+                            //string[] templ = B1[i, j].ToString().Split(new char[] { '+' });
+                            ffa = ffa +"       "+ G1[i, j] + "+" + "j" + B1[i, j].ToString();
                         }
 
 
@@ -498,13 +520,13 @@ namespace PowerMonitor
         private void Calculate_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
-            Mode.Text = "正忙";
+           
             //CalculateEngine.Calculate.abc();
-            Mode.Text = "计算完成！";
+           
             
             panel2.Show();
         }
-     
+        
         private void WiFi_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
@@ -513,7 +535,7 @@ namespace PowerMonitor
 
         private void skinLabel3_Click(object sender, EventArgs e)
         {
-
+        
         }
 
 
@@ -537,7 +559,7 @@ namespace PowerMonitor
         private Queue<double> dataQueue2 = new Queue<double>(10);
        
         private int num = 1;//每次删除增加几个点
-        private void UpdateQueueValue1()
+        private void UpdateQueueValue1(double du1)
         {
 
             if (dataQueue1.Count > 10)
@@ -549,14 +571,14 @@ namespace PowerMonitor
                 }
             }
            
-                Random r = new Random();
+                
                 for (int i = 0; i < num; i++)
                 {
-                    dataQueue1.Enqueue(r.Next(0, 100));
+                    dataQueue1.Enqueue(du1);
                 }
            
         }
-        private void UpdateQueueValue2()
+        private void UpdateQueueValue2(double dthera1)
         {
 
             if (dataQueue2.Count > 10)
@@ -568,10 +590,10 @@ namespace PowerMonitor
                 }
             }
 
-            Random r = new Random();
+        
             for (int i = 0; i < num; i++)
             {
-                dataQueue2.Enqueue(r.Next(0, 100));
+                dataQueue2.Enqueue(dthera1);
             }
 
         }
@@ -587,8 +609,8 @@ namespace PowerMonitor
             series1.ChartArea = "C1";
             this.chart1.Series.Add(series1);
             //设置图表显示样式
-            this.chart1.ChartAreas[0].AxisY.Minimum = 0;
-            this.chart1.ChartAreas[0].AxisY.Maximum = 100;
+            this.chart1.ChartAreas[0].AxisY.Minimum = -0.5;
+            this.chart1.ChartAreas[0].AxisY.Maximum = +0.5;
             this.chart1.ChartAreas[0].AxisX.Interval = 5;
             this.chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
             this.chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
@@ -616,15 +638,15 @@ namespace PowerMonitor
             series1.ChartArea = "C1";
             this.chart2.Series.Add(series1);
             //设置图表显示样式
-            this.chart2.ChartAreas[0].AxisY.Minimum = 0;
-            this.chart2.ChartAreas[0].AxisY.Maximum = 100;
+            this.chart2.ChartAreas[0].AxisY.Minimum = -0.5;
+            this.chart2.ChartAreas[0].AxisY.Maximum = +0.5;
             this.chart2.ChartAreas[0].AxisX.Interval = 5;
             this.chart2.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
             this.chart2.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
             //设置标题
             this.chart2.Titles.Clear();
             this.chart2.Titles.Add("S01");
-            this.chart2.Titles[0].Text = "电流显示";
+            this.chart2.Titles[0].Text = "角度显示";
             this.chart2.Titles[0].ForeColor = Color.RoyalBlue;
             this.chart2.Titles[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             //设置图表显示样式
@@ -633,29 +655,47 @@ namespace PowerMonitor
 
             this.chart2.Series[0].Points.Clear();
         }
+        static int vvg = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateQueueValue1();
-            this.chart1.Series[0].Points.Clear();
-            for (int i = 0; i < dataQueue1.Count; i++)
+
+            if (vvg < du.Count)
             {
-                this.chart1.Series[0].Points.AddXY((i + 1), dataQueue1.ElementAt(i));
+                UpdateQueueValue1(du[vvg]);
+                this.chart1.Series[0].Points.Clear();
+                for (int i = 0; i < dataQueue1.Count; i++)
+                {
+                    this.chart1.Series[0].Points.AddXY((i + 1), dataQueue1.ElementAt(i));
+                }
             }
+            else
+            {
+                timer1.Stop();
+            }
+            vvg++;
         }
 
         private void skinButton3_Click(object sender, EventArgs e)
         {
             this.timer1.Start();
         }
-
+        static int vvg1 = 0;
         private void timer2_Tick(object sender, EventArgs e)
         {
-            UpdateQueueValue2();
-            this.chart2.Series[0].Points.Clear();
-            for (int i = 0; i < dataQueue2.Count; i++)
+            if (vvg1 < thera.Count)
             {
-                this.chart2.Series[0].Points.AddXY((i + 1), dataQueue2.ElementAt(i));
+                UpdateQueueValue2(thera[vvg1]);
+                this.chart2.Series[0].Points.Clear();
+                for (int i = 0; i < dataQueue2.Count; i++)
+                {
+                    this.chart2.Series[0].Points.AddXY((i + 1), dataQueue2.ElementAt(i));
+                }
             }
+            else
+            {
+                timer2.Stop();
+            }
+            vvg1++;
         }
 
         private void skinButton6_Click(object sender, EventArgs e)
@@ -673,6 +713,72 @@ namespace PowerMonitor
             this.timer2.Stop();
         }
         #endregion
+        List<double> du = new List<double> { };
+        List<double> thera = new List<double> { };
+        
+        private void skinButton8_Click(object sender, EventArgs e)
+        {
+            Mode.Text = "正忙";
+            double[] u11 = new double[JieDian-1];
+            double[] thera11 = new double[JieDian-1];
+            List<int> uuu = new List<int> { };
+            string str = @"E:\C#学习\ChaoLiu\PowerMonitor\bin\Debug\TestTxt.txt";
+            CalculateEngine.Calculate.abc(du, thera, str,u11,thera11,uuu);
+            for (int hhi = 0; hhi < u11.Length; hhi++)
+            {
+                panellist1[hhi].Text = ((float) u11[hhi]).ToString()+ "∠" + ((float)thera11[hhi]).ToString();   
+              
+            }
+            panellist1[u11.Length].Text = "平衡节点电压相角";
+            for (int jjh = 0; jjh < panellist3.Count; jjh++)
+            {
+                panellist3[jjh].Text = "节点" +( uuu[jjh]+1).ToString() + " U： ";
+            }
+            
+
+             Mode.Text = "计算完成！";
+            skinChatRichTextBox1.AppendText("计算结果");
+            skinChatRichTextBox1.AppendText(DateTime.Now.Date.ToShortDateString()+"\n");
+            string logSave = @"C:\Users\Administrator\Desktop\Input0.txt";
+            if (!System.IO.File.Exists(logSave))
+            {
+                MessageBox.Show("该文件不存在！");
+            }
+            else
+            {
+                 FileStream fsRead = new FileStream(logSave, FileMode.Open, FileAccess.Read);
+
+                StreamReader read = new StreamReader(fsRead, Encoding.UTF8);
+                string strReadline;
+
+                for (int ji = 0; (strReadline = read.ReadLine()) != null; ji++)
+                {
+                    skinChatRichTextBox1.AppendText(strReadline+"\n");
+                }
+
+
+            }
+
+            }
+
+        private void skinButton1_Click(object sender, EventArgs e)
+        {
+            string filePath= Savas();
+            if (filePath != null)
+            {
+                string text = skinChatRichTextBox1.Text;
+                FileStream fs = null;
+                byte[] array = new UTF8Encoding(true).GetBytes(text);
+                fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+                fs.Write(array, 0, array.Length);
+                fs.Flush();
+                MessageBox.Show("保存成功");
+            }
+            else
+            {
+                MessageBox.Show("保存失败，请重新选择！");
+            }
+        }
     }
 }
     
