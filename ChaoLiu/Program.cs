@@ -396,21 +396,24 @@ namespace ChaoLiu
             {
 
 
-                Caculate_Y1(i, U, thera, G, B, P, DP, Y1);
+                Caculate_Y1(i, U, thera, G, B, P, DP, Y1);//计算Y1也就是inv（B'）*（DP/U）
 
                 double[,] dReturn1 = ReverseMatrix(B1, i);
                 double[,] dReturn2 = ReverseMatrix(B2, j);
 
 
-                ChengJi(i, 1, i, dReturn1, Y1, X1);
-                for (int o = 0; o < X1.Length; o++)
+                ChengJi(i, 1, i, dReturn1, Y1, X1);//计算X1==U*DThera
+                for (int o = 0; o < X1.Length; o++)//计算DThera
                 {
                     Dthera[o] = X1[o, 0] / U[o];
                 }
+
+
                 for (int c = 0; c < thera.Length; c++)
                 {
                     thera[c] = thera[c] + Dthera[c];
                 }
+
                 Caculate_Y2(j, U, thera, G, B, Q, DQ, Y2);
                 //得到Dthera
 

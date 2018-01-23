@@ -175,7 +175,7 @@ namespace CalculateEngine
             double eps = 0.0001; int j = 0; int i = list.Count - 1; int sumPV = 0;
             foreach (var item in list)
             {
-                if (item.Type == "PV节点")
+                if (item.Type == "PV")
                 {
                     sumPV++;
                 }
@@ -266,7 +266,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
                     {
-                        tempo = tempo + G[nu, nu1] + "      ";
+                        tempo = tempo + G[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sw.WriteLine(tempo);
                 }
@@ -276,7 +276,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
                     {
-                        tempo = tempo + B[nu, nu1] + "      ";
+                        tempo = tempo + B[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sw.WriteLine(tempo);
                 }
@@ -286,7 +286,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
                     {
-                        tempo = tempo + B1[nu, nu1] + "      ";
+                        tempo = tempo + B1[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sw.WriteLine(tempo);
                 }
@@ -296,7 +296,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
                     {
-                        tempo = tempo + B2[nu, nu1] + "      ";
+                        tempo = tempo + B2[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sw.WriteLine(tempo);
                 }
@@ -304,12 +304,12 @@ namespace CalculateEngine
                 sw.WriteLine("----------------U矩阵------------------");
                 for (int nu = 0; nu < (U.Length); nu++)
                 {
-                    sw.WriteLine(U[nu]);
+                    sw.WriteLine(U[nu].ToString("#0.000000"));
                 }
                 sw.WriteLine("----------------Thera矩阵------------------");
                 for (int nu = 0; nu < (thera.Length); nu++)
                 {
-                    sw.WriteLine(thera[nu]);
+                    sw.WriteLine(thera[nu].ToString("#0.000000"));
                 }
                 sw.Close();
                 fsRead.Close();
@@ -326,7 +326,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(G.Length); nu1++)
                     {
-                        tempo = tempo + G[nu, nu1] + "      ";
+                        tempo = tempo + G[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sr.WriteLine(tempo);
                 }
@@ -336,7 +336,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B.Length); nu1++)
                     {
-                        tempo = tempo + B[nu, nu1] + "      ";
+                        tempo = tempo + B[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sr.WriteLine(tempo);
                 }
@@ -346,7 +346,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B1.Length); nu1++)
                     {
-                        tempo = tempo + B1[nu, nu1] + "      ";
+                        tempo = tempo + B1[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sr.WriteLine(tempo);
                 }
@@ -356,7 +356,7 @@ namespace CalculateEngine
                     string tempo = null;
                     for (int nu1 = 0; nu1 < Math.Sqrt(B2.Length); nu1++)
                     {
-                        tempo = tempo + B2[nu, nu1] + "      ";
+                        tempo = tempo + B2[nu, nu1].ToString("#0.000000") + "         ";
                     }
                     sr.WriteLine(tempo);
                 }
@@ -364,12 +364,12 @@ namespace CalculateEngine
                 sr.WriteLine("----------------U矩阵------------------");
                 for (int nu = 0; nu < (U.Length); nu++)
                 {
-                    sr.WriteLine(U[nu]);
+                    sr.WriteLine(U[nu].ToString("#0.000000"));
                 }
                 sr.WriteLine("----------------Thera矩阵------------------");
                 for (int nu = 0; nu < (thera.Length); nu++)
                 {
-                    sr.WriteLine(thera[nu]);
+                    sr.WriteLine(thera[nu].ToString("#0.000000"));
                 }
 
                 sr.Close();
@@ -809,28 +809,28 @@ namespace CalculateEngine
             string[] range = contents[contents.Length - 1].Split(new char[] { ' ', '：', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             for (int l = 0; l < list.Count(); l++)
             {
-                for (int h = 0; h < list.Count(); h++)
+                for (int h = 1; h <= list.Count(); h++)
                 {
 
-                    string[] temp = range[l * (list.Count()) + h + 1].Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] temp = range[h + l * list.Count()].Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
                     char[] str = temp[0].ToCharArray();
                     string strObj = null;
                     for (int s = 0; s < str.Length - 1; s++)
                     {
                         strObj = strObj + str[s];
                     }
-                    G[l, h] = Convert.ToDouble(strObj);
+                    G[l, h - 1] = Convert.ToDouble(strObj);
 
 
                     if (temp.Length > 1)
                     {
                         if (str[str.Length - 1] == '-')
                         {
-                            B[l, h] = -Convert.ToDouble(temp[1]);
+                            B[l, h - 1] = -Convert.ToDouble(temp[1]);
                         }
                         else
                         {
-                            B[l, h] = -Convert.ToDouble(temp[1]);
+                            B[l, h - 1] = Convert.ToDouble(temp[1]);
                         }
 
                     }

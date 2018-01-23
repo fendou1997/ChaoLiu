@@ -103,7 +103,7 @@ namespace PowerMonitor
                 return "";
             }
         }
-       /// <summary>
+        /// <summary>
        /// 弹出Form1得到节点数
        /// </summary>
        /// <param name="sender"></param>
@@ -113,7 +113,7 @@ namespace PowerMonitor
             Form1 frm1 = new Form1(GetJieDian);
             frm1.Show();
         }
-       void GetJieDian(string str)
+        void GetJieDian(string str)
         {           
             JieDian = Convert.ToInt16(str);
             DTCreate(JieDian);
@@ -125,13 +125,16 @@ namespace PowerMonitor
         List<CCWin.SkinControl.SkinTextBox> textboxlist1 = new List<CCWin.SkinControl.SkinTextBox> { };
         List<CCWin.SkinControl.SkinComboBox> skincomboList = new List<CCWin.SkinControl.SkinComboBox> { };
         List<CCWin.SkinControl.SkinLabel> skinlabellist = new List<CCWin.SkinControl.SkinLabel> { };//连接节点
-        List<CCWin.SkinControl.SkinLabel> skinlabellist1 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
-        List<CCWin.SkinControl.SkinLabel> skinlabellist2 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
+        List<CCWin.SkinControl.SkinLabel> skinlabellist1 = new List<CCWin.SkinControl.SkinLabel> { };//
+        List<CCWin.SkinControl.SkinLabel> skinlabellist2 = new List<CCWin.SkinControl.SkinLabel> { };//
 
-        List<CCWin.SkinControl.SkinLabel> panellist1 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
-        List<CCWin.SkinControl.SkinLabel> panellist3 = new List<CCWin.SkinControl.SkinLabel> { };//P||U
+        List<CCWin.SkinControl.SkinLabel> panellist1 = new List<CCWin.SkinControl.SkinLabel> { };//
+        List<CCWin.SkinControl.SkinLabel> panellist3 = new List<CCWin.SkinControl.SkinLabel> { };//创建泛型集合将数据进行存储
 
-
+        /// <summary>
+        /// 用于动态创建控件
+        /// </summary>
+        /// <param name="JieDian"></param>
         public void DTCreate(int JieDian)
         {
             int i;
@@ -265,6 +268,9 @@ namespace PowerMonitor
             WeiTuoCreated();
             WeiTuoCreated2();
         }
+        
+        
+        ///创建委托，为控件添加事件
         public void WeiTuoCreated()
         {
             foreach (var item in skincomboList)
@@ -273,6 +279,10 @@ namespace PowerMonitor
             }
 
         }
+
+        /// <summary>
+        /// 创建委托，为控件添加事件
+        /// </summary>
         public void WeiTuoCreated2()
         {
             foreach (var item in skinlabellist)
@@ -282,8 +292,8 @@ namespace PowerMonitor
 
         }
 
-        static int biaohao = 0;
-
+        static int biaohao = 0;//定义编号用于传值
+        #region 添加事件
         private void skinLabel_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -345,7 +355,7 @@ namespace PowerMonitor
         {
 
         }
-
+        #endregion
         private void Form2_Load(object sender, EventArgs e)
         {
             
@@ -355,6 +365,7 @@ namespace PowerMonitor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
         private void skinButton_Click(object sender, EventArgs e)
         {
             double[,] G1 = new double[JieDian, JieDian];//DP/U
@@ -367,6 +378,7 @@ namespace PowerMonitor
                     B1[i, j] = B[i, j];
                 }
             }
+            #region 写入文件
             if (!System.IO.File.Exists("TestTxt.txt"))
             {
                 FileStream fs1 = new FileStream("TestTxt.txt", FileMode.Create, FileAccess.Write);//创建写入文件 
@@ -492,6 +504,7 @@ namespace PowerMonitor
                 fs.Close();
 
             }
+            #endregion
             ProcessStartInfo psi = new ProcessStartInfo(@"E:\C#学习\ChaoLiu\PowerMonitor\bin\Debug\TestTxt.txt");
             //创建进程对象
             Process pro = new Process();
@@ -504,8 +517,12 @@ namespace PowerMonitor
 
 
         }
-        double[,] G = new double[100, 100];//DP/U
-        double[,] B = new double[100, 100];//DP/U
+
+
+        double[,] G = new double[100, 100];//只能计算100阶的矩阵
+        double[,] B = new double[100, 100];//
+
+        //用于调用委托
         public void ValueSend(List<double> list1, List<double> list2)
         {
           
@@ -539,7 +556,7 @@ namespace PowerMonitor
         }
 
 
-        #region chart
+        #region chart绘制功能，包括使用timer等
         private void skinButton2_Click(object sender, EventArgs e)
         {
             InitChart1();
@@ -713,9 +730,9 @@ namespace PowerMonitor
             this.timer2.Stop();
         }
         #endregion
-        List<double> du = new List<double> { };
+        List<double> du = new List<double> { };//为了将数据加载到界面；
         List<double> thera = new List<double> { };
-        
+        //调用类库文件进行计算
         private void skinButton8_Click(object sender, EventArgs e)
         {
             Mode.Text = "正忙";
@@ -760,7 +777,11 @@ namespace PowerMonitor
             }
 
             }
-
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void skinButton1_Click(object sender, EventArgs e)
         {
             string filePath= Savas();

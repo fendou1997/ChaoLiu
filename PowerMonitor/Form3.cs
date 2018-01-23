@@ -11,7 +11,7 @@ using CCWin;
 
 namespace PowerMonitor
 {
-    public delegate void ValueSend(List<double> list1, List<double> list2);
+    public delegate void ValueSend(List<double> list1, List<double> list2);//声明委托，用于传输数据
     public partial class Form3 : Skin_DevExpress
     {
         public int jieDian;
@@ -25,13 +25,20 @@ namespace PowerMonitor
             no = i;
             InitializeComponent();
         }
-        List<CCWin.SkinControl.SkinTextBox> list1 = new List<CCWin.SkinControl.SkinTextBox> { };
+        List<CCWin.SkinControl.SkinTextBox> list1 = new List<CCWin.SkinControl.SkinTextBox> { };//创建泛型集合，存储数据，将控件对象加入到集合中
         List<CCWin.SkinControl.SkinTextBox> Yt = new List<CCWin.SkinControl.SkinTextBox> { };
         List<CCWin.SkinControl.SkinTextBox> Yt1 = new List<CCWin.SkinControl.SkinTextBox> { };
         List<CCWin.SkinControl.SkinComboBox> list2 = new List<CCWin.SkinControl.SkinComboBox> { };
         List<CCWin.SkinControl.SkinComboBox> list4 = new List<CCWin.SkinControl.SkinComboBox> { };//变压器
         List<System.Windows.Forms.CheckBox> list3 = new List<System.Windows.Forms.CheckBox> { };
 
+
+        /// <summary>
+        /// 通过获得form2的节点数从而进行绘制窗体
+        /// 通过代码进行动态创建窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form3_Load(object sender, EventArgs e)
         {
             int i;
@@ -39,6 +46,8 @@ namespace PowerMonitor
             {
                 if (i != no)
                 {
+                    #region 创建文本框（利用代码）
+
                     CCWin.SkinControl.SkinTextBox textbox = new CCWin.SkinControl.SkinTextBox();
                     textbox.Name = "formtextBox" + i;
                     textbox.Parent = this;
@@ -49,7 +58,9 @@ namespace PowerMonitor
 
                     this.skinPanel1.Controls.Add(textbox);
                     list1.Add(textbox);
+                    #endregion
 
+                    #region 创建选择框
                     CCWin.SkinControl.SkinComboBox combo = new CCWin.SkinControl.SkinComboBox();
                     combo.Name = "formcom" + (i + 1).ToString();
                     combo.Parent = this;
@@ -61,7 +72,9 @@ namespace PowerMonitor
 
                     this.skinPanel1.Controls.Add(combo);
                     list2.Add(combo);
+                    #endregion
 
+                    #region 创建变压器i文本
                     CCWin.SkinControl.SkinLabel hhh = new CCWin.SkinControl.SkinLabel();
                     hhh.Name = "formcomm" + (i + 1).ToString();
                     hhh.Parent = this;
@@ -70,7 +83,9 @@ namespace PowerMonitor
                     hhh.Visible = true;
                     hhh.Text = "变压器" + (i + 1).ToString();
                     this.skinPanel1.Controls.Add(hhh);
+                    #endregion
 
+                    #region 创建Gt*、Bt*
                     CCWin.SkinControl.SkinLabel hhh1 = new CCWin.SkinControl.SkinLabel();
                     hhh1.Name = "formm" + (i + 1).ToString();
                     hhh1.Parent = this;
@@ -87,7 +102,10 @@ namespace PowerMonitor
                     hhh2.Visible = true;
                     hhh2.Text = "Bt*" + (i + 1).ToString();
                     this.skinPanel1.Controls.Add(hhh2);
+                    #endregion
 
+
+                    #region 创建变压器变比选择项
                     CCWin.SkinControl.SkinComboBox bianyaqi = new CCWin.SkinControl.SkinComboBox();
                     bianyaqi.Name = "formcomm" + (i + 1).ToString();
                     bianyaqi.Parent = this;
@@ -103,9 +121,11 @@ namespace PowerMonitor
                     this.skinPanel1.Controls.Add(bianyaqi);
                     list4.Add(bianyaqi);
 
+                    #endregion
 
+                    #region 创建Gt的文本框
                     CCWin.SkinControl.SkinTextBox textbox1 = new CCWin.SkinControl.SkinTextBox();
-                    textbox1.Name = "formtextBox1" + i;
+                    textbox1.Name = "formtextBx1" + i;
                     textbox1.Parent = this;
                     textbox1.Location = new System.Drawing.Point(764-30-10-30-10, 55 + i * 90);
                     textbox1.Size = new System.Drawing.Size(59, 28);
@@ -114,7 +134,9 @@ namespace PowerMonitor
 
                     this.skinPanel1.Controls.Add(textbox1);
                     Yt.Add(textbox1);
+                    #endregion
 
+                    #region 创建Bt的文本框
                     CCWin.SkinControl.SkinTextBox textbox2 = new CCWin.SkinControl.SkinTextBox();
                     textbox2.Name = "formtextBox1" + i;
                     textbox2.Parent = this;
@@ -125,9 +147,9 @@ namespace PowerMonitor
 
                     this.skinPanel1.Controls.Add(textbox2);
                     Yt1.Add(textbox2);
+                    #endregion
 
-
-
+                    #region 创建节点i的label
                     System.Windows.Forms.CheckBox radiobox = new System.Windows.Forms.CheckBox();
                     radiobox.Name = "formRadioBox" + i;
                     radiobox.Parent = this;
@@ -139,6 +161,8 @@ namespace PowerMonitor
 
                     this.skinPanel1.Controls.Add(radiobox);
                     list3.Add(radiobox);
+                    #endregion
+
 
                     //CCWin.SkinControl.SkinLabel label2 = new CCWin.SkinControl.SkinLabel();
                     //label2.Name = "labelZD3" + i;
@@ -246,15 +270,24 @@ namespace PowerMonitor
             button.Click += new System.EventHandler(this.skinButton_Click);
             Shijian();
         }
+        
+        
+        /// <summary>
+        /// 为多选框创建事件，从而达到触发的目的
+        /// </summary>
         public void Shijian()
         {
             foreach (var item in list3)
             {
-                item.CheckedChanged += new System.EventHandler(SkinCheckBox_CheckedChanged);
+                item.CheckedChanged += new System.EventHandler(SkinCheckBox_CheckedChanged);//添加了一个状态改变的事件
             }
 
         }
-
+        /// <summary>
+        ///  public void Shijian()的处理函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SkinCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             int i=0, j=0;
@@ -289,6 +322,12 @@ namespace PowerMonitor
 
 
         }
+
+        /// <summary>
+        /// 进行导纳矩阵的修改，由于添加变压器则会进行改变导纳矩阵
+        /// </summary>
+        /// <param name="G"></param>
+        /// <param name="B"></param>
         public void YtCreate(double []G,double[]B)
         {
             for (int i = 0; i < Yt.Count; i++)
@@ -329,13 +368,19 @@ namespace PowerMonitor
             }
 
         }
+
+        /// <summary>
+        /// 添加按钮按下的处理函数，通过委托将数据传给form2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void skinButton_Click(object sender, EventArgs e)
         {
             
   
-                List<double> list11 = new List<double> { };
+                List<double> list11 = new List<double> { };//声明两个list泛型集合
                 List<double> list12 = new List<double> { };
-
+            
             for (int i = 0; i < list2.Count; i++)
             {
                 double Re;
@@ -392,13 +437,13 @@ namespace PowerMonitor
             double[] G = new double[list11.Count];
             double[] B = new double[list12.Count];
             G = list11.ToArray();
-            B = list12.ToArray();
-            YtCreate(G, B);
+            B = list12.ToArray();//计算矩阵的阻抗与导纳
+            YtCreate(G, B);//进行变压器变比的修改
             
-            Valuelist(G.ToList(), B.ToList());
+            Valuelist(G.ToList(), B.ToList());//调用委托，进行传值
 
 
-                this.Close();
+                this.Close();//关闭窗口
             }
          
         }
