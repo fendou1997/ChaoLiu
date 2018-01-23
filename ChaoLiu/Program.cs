@@ -175,7 +175,7 @@ namespace ChaoLiu
             double eps = 0.0001;int j=0;int i = list.Count - 1;int sumPV = 0;
             foreach (var item in list)
             {
-                if (item.Type == "PV节点")
+                if (item.Type == "PV")
                 {
                     sumPV++;
                 }
@@ -465,6 +465,7 @@ namespace ChaoLiu
             }
             return leaf;
         }
+        #region 计算矩阵的向量积
 
         /// <summary>
         /// 计算矩阵的乘积
@@ -494,7 +495,7 @@ namespace ChaoLiu
                 }
             }
         }
-
+        #endregion
         private static void Caculate_Y2(int j, double[] U, double[] thera, double[,] G, double[,] B2, double[] Q, double[] DQ, double[,] Y2)
         {
 
@@ -517,6 +518,7 @@ namespace ChaoLiu
                 Y2[l, 0] = DQ[l] / U[l];
             }
         }
+        #region 计算矩阵的逆
         public static double MatrixValue(double[,] MatrixList, int Level)  //求得|A| 如果为0 说明不可逆
 
         {
@@ -722,7 +724,7 @@ namespace ChaoLiu
             return dReturn;
 
         }
-
+        #endregion
 
 
         private static void Caculate_Y1(int i, double[] U, double[] thera, double[,] G, double[,] B1, double[] P, double[] DP, double[,] Y1)
@@ -745,6 +747,7 @@ namespace ChaoLiu
                 Y1[l, 0] = DP[l] / U[l];
             }
         }
+
         private static void DataGet(string[] contents, List<Data> list)
         {
             for (int i = 0; i < contents.Length; i++)
@@ -809,28 +812,28 @@ namespace ChaoLiu
             string[] range = contents[contents.Length - 1].Split(new char[] { ' ', '：' ,'\t'}, StringSplitOptions.RemoveEmptyEntries);
             for (int l = 0; l < list.Count(); l++)
             {
-                for (int h = 0; h < list.Count(); h++)
+                for (int h = 1; h <= list.Count(); h++)
                 {
                     
-                        string[] temp = range[l * (list.Count()) + h +1].Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] temp = range[h+l* list.Count()].Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
                         char[] str = temp[0].ToCharArray();
                         string strObj = null;
                         for (int s = 0; s < str.Length - 1; s++)
                         {
                             strObj = strObj + str[s];
                         }
-                        G[l, h] = Convert.ToDouble(strObj);
+                        G[l, h-1] = Convert.ToDouble(strObj);
 
 
                         if (temp.Length > 1)
                         {
                             if (str[str.Length - 1] == '-')
                             {
-                                B[l, h] = -Convert.ToDouble(temp[1]);
+                                B[l, h-1] = -Convert.ToDouble(temp[1]);
                             }
                             else
                             {
-                                B[l, h] = -Convert.ToDouble(temp[1]);
+                                B[l, h-1] =Convert.ToDouble(temp[1]);
                             }
                            
                         }
