@@ -9,9 +9,21 @@ using System.Threading.Tasks;
 
 namespace CalculateEngine
 {
+    /// <summary>
+    /// 用于计算潮流
+    /// </summary>
     public class Calculate
     {
-       public  static void abc(List<double> duList, List<double> dtheraList,string str,double[] U11, double[] thera11,List<int> uuu)
+        /// <summary>
+        /// 供界面调用，进行计算，为静态方法，在项目启动时加载
+        /// </summary>
+        /// <param name="duList"></param>每一次的du平均值，用于绘图
+        /// <param name="dtheraList"></param>每一次的dthera平均值，用于绘图
+        /// <param name="str"></param>//保存路径
+        /// <param name="U11"></param>//最终的U
+        /// <param name="thera11"></param>最终的thera
+        /// <param name="uuu"></param>标号
+        public static void abc(List<double> duList, List<double> dtheraList,string str,double[] U11, double[] thera11,List<int> uuu)
         {
             string strFilePath =str;
             int leaf = 0;
@@ -388,6 +400,30 @@ namespace CalculateEngine
 
             //Console.ReadKey();
         }
+        /// <summary>
+        /// 主计算程序
+        /// </summary>
+        /// <param name="i"></param>B'的阶数
+        /// <param name="j"></param>B''的阶数
+        /// <param name="eps"></param>计算精度
+        /// <param name="P"></param>P
+        /// <param name="Q"></param>Q
+        /// <param name="G"></param>G
+        /// <param name="B"></param>B
+        /// <param name="U"></param>U
+        /// <param name="thera"></param>thera角度
+        /// <param name="DU"></param>
+        /// <param name="Dthera"></param>
+        /// <param name="B1"></param>B'
+        /// <param name="B2"></param>B''
+        /// <param name="DP"></param>
+        /// <param name="DQ"></param>
+        /// <param name="Y1"></param>
+        /// <param name="Y2"></param>
+        /// <param name="X1"></param>
+        /// <param name="X2"></param>
+        /// <param name="duList"></param>
+        /// <param name="dtheraList"></param>
         private static void MainCalculate(int i, int j, double eps, double[] P, double[] Q, double[,] G, double[,] B, double[] U, double[] thera, double[] DU, double[] Dthera, double[,] B1, double[,] B2, double[] DP, double[] DQ, double[,] Y1, double[,] Y2, double[,] X1, double[,] X2, List<double> duList, List<double> dtheraList)
         {
             //设置精度
@@ -398,11 +434,11 @@ namespace CalculateEngine
 
                 Caculate_Y1(i, U, thera, G, B, P, DP, Y1);
 
-                double[,] dReturn1 = ReverseMatrix(B1, i);
-                double[,] dReturn2 = ReverseMatrix(B2, j);
+                double[,] dReturn1 = ReverseMatrix(B1, i);//得到B'的逆矩阵
+                double[,] dReturn2 = ReverseMatrix(B2, j);//得到B''的逆矩阵
 
 
-                ChengJi(i, 1, i, dReturn1, Y1, X1);
+                ChengJi(i, 1, i, dReturn1, Y1, X1);//得到Y1
                 for (int o = 0; o < X1.Length; o++)
                 {
                     Dthera[o] = X1[o, 0] / U[o];
@@ -411,8 +447,9 @@ namespace CalculateEngine
                 {
                     thera[c] = thera[c] + Dthera[c];
                 }
-                Caculate_Y2(j, U, thera, G, B, Q, DQ, Y2);
-                //得到Dthera
+                //得到Dthera 和thera
+                Caculate_Y2(j, U, thera, G, B, Q, DQ, Y2);//得到Y2
+                
 
 
                 ChengJi(j, 1, j, dReturn2, Y2, X2);//为了得到X2
@@ -423,16 +460,18 @@ namespace CalculateEngine
                 {
                     DU[o] = X2[o, 0];
                 }
-                //判断精度
+                //得到DU
 
 
+                //判断精度是否跳出
                 if (PanDuan(DP, eps) == Dthera.Length && PanDuan(DQ, eps) == DU.Length)
                 {
                     //Console.WriteLine("shu");
                     //Console.WriteLine(h);
                     break;
                 }
-                //修正
+                //修正U
+                //得到平均变化量，传给窗体画图
                 for (int c = 0; c < DU.Length; c++)
                 {
                     U[c] = U[c] + DU[c];
@@ -451,7 +490,12 @@ namespace CalculateEngine
                 dtheraList.Add(sum2 / Dthera.Length);
             }
         }
-
+        /// <summary>
+        /// 用于判断是否结束计算
+        /// </summary>
+        /// <param name="Dthera"></param>
+        /// <param name="eps"></param>
+        /// <returns></returns>
         private static int PanDuan(double[] Dthera, double eps)
         {
             int leaf = 0;
@@ -465,7 +509,7 @@ namespace CalculateEngine
             }
             return leaf;
         }
-
+        
         /// <summary>
         /// 计算矩阵的乘积
         /// </summary>
@@ -494,7 +538,17 @@ namespace CalculateEngine
                 }
             }
         }
-
+        /// <summary>
+        /// 计算Y2 =DU
+        /// </summary>
+        /// <param name="j"></param>
+        /// <param name="U"></param>
+        /// <param name="thera"></param>
+        /// <param name="G"></param>
+        /// <param name="B2"></param>
+        /// <param name="Q"></param>
+        /// <param name="DQ"></param>
+        /// <param name="Y2"></param>
         private static void Caculate_Y2(int j, double[] U, double[] thera, double[,] G, double[,] B2, double[] Q, double[] DQ, double[,] Y2)
         {
 
@@ -517,6 +571,13 @@ namespace CalculateEngine
                 Y2[l, 0] = DQ[l] / U[l];
             }
         }
+        
+        /// <summary>
+        /// 判断是否可逆
+        /// </summary>
+        /// <param name="MatrixList"></param>
+        /// <param name="Level"></param>
+        /// <returns></returns>
         public static double MatrixValue(double[,] MatrixList, int Level)  //求得|A| 如果为0 说明不可逆
 
         {
@@ -571,6 +632,13 @@ namespace CalculateEngine
             }
             return k * sn;
         }
+        
+        /// <summary>
+        /// 计算矩阵的逆矩阵
+        /// </summary>
+        /// <param name="dMatrix"></param>
+        /// <param name="Level"></param>
+        /// <returns></returns>
         public static double[,] ReverseMatrix(double[,] dMatrix, int Level)
         {
             double dMatrixValue = MatrixValue(dMatrix, Level);
@@ -724,7 +792,17 @@ namespace CalculateEngine
         }
 
 
-
+        /// <summary>
+        /// 计算Y1 U*Dthera
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="U"></param>
+        /// <param name="thera"></param>
+        /// <param name="G"></param>
+        /// <param name="B1"></param>
+        /// <param name="P"></param>
+        /// <param name="DP"></param>
+        /// <param name="Y1"></param>
         private static void Caculate_Y1(int i, double[] U, double[] thera, double[,] G, double[,] B1, double[] P, double[] DP, double[,] Y1)
         {
             for (int l = 0; l < P.Length; l++)
@@ -745,6 +823,12 @@ namespace CalculateEngine
                 Y1[l, 0] = DP[l] / U[l];
             }
         }
+
+        /// <summary>
+        /// 从文本文件中获取数据
+        /// </summary>
+        /// <param name="contents"></param>
+        /// <param name="list"></param>
         private static void DataGet(string[] contents, List<Data> list)
         {
             for (int i = 0; i < contents.Length; i++)
@@ -803,6 +887,13 @@ namespace CalculateEngine
             }
         }
 
+        /// <summary>
+        /// 从文本文件中读取导纳矩阵
+        /// </summary>
+        /// <param name="contents"></param>
+        /// <param name="list"></param>
+        /// <param name="B"></param>
+        /// <param name="G"></param>
         private static void NetExpand(string[] contents, List<Data> list, double[,] B, double[,] G)
         {
 
@@ -909,7 +1000,7 @@ namespace CalculateEngine
 
         private double inpositive;
 
-    }
+    }//继承于Data，用于存储PQ节点
     class PVData : Data
     {
         private double positive;
@@ -942,7 +1033,7 @@ namespace CalculateEngine
 
         private double volt;
 
-    }
+    }//继承于Data，用于存储PV节点
     class BalanceData : Data
     {
 
@@ -975,5 +1066,5 @@ namespace CalculateEngine
 
         private double volt;
 
-    }
+    }//继承于Data，用于存储平衡节点
 }

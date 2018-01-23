@@ -376,63 +376,80 @@ namespace PowerMonitor
         /// <param name="e"></param>
         private void skinButton_Click(object sender, EventArgs e)
         {
-            
-  
-                List<double> list11 = new List<double> { };//声明两个list泛型集合
-                List<double> list12 = new List<double> { };
-            
-            for (int i = 0; i < list2.Count; i++)
+
+
+            List<double> list11 = new List<double> { };//声明两个list泛型集合
+            List<double> list12 = new List<double> { };
+            int lleaf = 0;
+            foreach (var item in list1)
             {
-                double Re;
-                double Im;
-                string xubu = null;
-                string shibu = null;
-                string temp = null;
-                string[] tempzu;
-                if (list3[i].Checked == true && list1[i].Text != "" && list1[i].Text != " ")
+                string[] tempi = item.Text.Trim().Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
+                if (tempi.Length < 2)
                 {
-                    temp = list1[i].Text.ToString();
-                    tempzu = temp.Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
-                    char[] abc = tempzu[0].ToArray();
-                    if (abc[abc.Length - 1] == '-')
+                    lleaf++;
+
+                }
+
+            }
+            if (lleaf != 0)
+            {
+                MessageBox.Show("输入错误，输入示例：1+j2或1-j2");
+            }
+            else
+            {
+                for (int i = 0; i < list2.Count; i++)
+                {
+                    double Re;
+                    double Im;
+                    string xubu = null;
+                    string shibu = null;
+                    string temp = null;
+                    string[] tempzu;
+                    if (list3[i].Checked == true && list1[i].Text != "" && list1[i].Text != " ")
                     {
-                        xubu = tempzu[1];
-                        Im = -Convert.ToDouble(xubu);
+                        temp = list1[i].Text.ToString();
+                        tempzu = temp.Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
+                        char[] abc = tempzu[0].ToArray();
+                        if (abc[abc.Length - 1] == '-')
+                        {
+                            xubu = tempzu[1];
+                            Im = -Convert.ToDouble(xubu);
+                        }
+                        else
+                        {
+                            xubu = tempzu[1];
+                            Im = Convert.ToDouble(xubu);
+                        }
+                        for (int jj = 0; jj < abc.Length - 1; jj++)
+                        {
+                            shibu = shibu + abc[jj];
+                        }
+
+                        Re = Convert.ToDouble(shibu);
+                        if (list2[i].Text == "阻抗")
+                        {
+                            Re = Re / (Re * Re + Im * Im);
+                            Im = -Im / (Re * Re + Im * Im);
+                        }
+                        else
+                        {
+
+                        }
+
+
+
+                        list11.Add(Re);
+                        list12.Add(Im);
                     }
                     else
                     {
-                        xubu = tempzu[1];
-                        Im = Convert.ToDouble(xubu);
-                    }
-                    for (int jj = 0; jj < abc.Length - 1; jj++)
-                    {
-                        shibu = shibu + abc[jj];
-                    }
-
-                    Re = Convert.ToDouble(shibu);
-                    if (list2[i].Text == "阻抗")
-                    {
-                        Re = Re / (Re * Re + Im * Im);
-                        Im = -Im / (Re * Re + Im * Im);
-                    }
-                    else
-                    {
-
+                        list11.Add(0);
+                        list12.Add(0);
                     }
 
 
 
-                    list11.Add(Re);
-                    list12.Add(Im);
                 }
-                else
-                {
-                    list11.Add(0);
-                    list12.Add(0);
-                }
-
-
-
             }
             double[] G = new double[list11.Count];
             double[] B = new double[list12.Count];
