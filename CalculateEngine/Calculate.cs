@@ -265,7 +265,10 @@ namespace CalculateEngine
             //List<double> dtheraList = new List<double> { };
 
             MainCalculate(i, j, eps, P, Q, G, B, U, thera, DU, Dthera, B1, B2, DP, DQ, Y1, Y2, X1, X2, duList, dtheraList);
+            double[,] Pgonglv = new double[list.Count, list.Count];
+            double[,] Qgonglv = new double[list.Count, list.Count];
 
+            gonglv(U, thera, G, B, Pgonglv, Qgonglv, 1, 0);//强制设为1 0
             #region 写入
             string logSave = @"C:\Users\Administrator\Desktop\Input0.txt";
             if (!System.IO.File.Exists(logSave))
@@ -322,6 +325,26 @@ namespace CalculateEngine
                 for (int nu = 0; nu < (thera.Length); nu++)
                 {
                     sw.WriteLine(thera[nu].ToString("#0.000000"));
+                }
+                sw.WriteLine("----------------损耗有功功率------------------");
+                for (int nu = 0; nu <Math.Sqrt( Pgonglv.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(Pgonglv.Length); nu1++)
+                    {
+                        tempo = tempo + Pgonglv[nu, nu1].ToString("#0.000000") + "         ";
+                    }
+                    sw.WriteLine(tempo);
+                }
+                sw.WriteLine("----------------损耗无功功率------------------");
+                for (int nu = 0; nu < Math.Sqrt(Pgonglv.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(Pgonglv.Length); nu1++)
+                    {
+                        tempo = tempo + Qgonglv[nu, nu1].ToString("#0.000000") + "         ";
+                    }
+                    sw.WriteLine(tempo);
                 }
                 sw.Close();
                 fsRead.Close();
@@ -383,7 +406,26 @@ namespace CalculateEngine
                 {
                     sr.WriteLine(thera[nu].ToString("#0.000000"));
                 }
-
+                sr.WriteLine("----------------损耗有功功率------------------");
+                for (int nu = 0; nu < Math.Sqrt(Pgonglv.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(Pgonglv.Length); nu1++)
+                    {
+                        tempo = tempo + Pgonglv[nu, nu1].ToString("#0.000000") + "         ";
+                    }
+                    sr.WriteLine(tempo);
+                }
+                sr.WriteLine("----------------损耗无功功率------------------");
+                for (int nu = 0; nu < Math.Sqrt(Pgonglv.Length); nu++)
+                {
+                    string tempo = null;
+                    for (int nu1 = 0; nu1 < Math.Sqrt(Pgonglv.Length); nu1++)
+                    {
+                        tempo = tempo + Qgonglv[nu, nu1].ToString("#0.000000") + "         ";
+                    }
+                    sr.WriteLine(tempo);
+                }
                 sr.Close();
                 fs.Close();
             }
@@ -509,7 +551,53 @@ namespace CalculateEngine
             }
             return leaf;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="U"></param>
+        /// <param name="thera"></param>
+        /// <param name="G"></param>
+        /// <param name="B"></param>
+        /// <param name="Pgonglv"></param>
+        /// <param name="Qgonglv"></param>
+        /// <param name="balanceU"></param>
+        /// <param name="balancethera"></param>
+        public static void gonglv(double[] U1, double[] thera1, double[,] G, double[,] B, double[,] Pgonglv, double[,] Qgonglv, double balanceU, double balancethera)
+        {
+            double[] UU = new double[U1.Length + 1];
+            double[] U = new double[U1.Length + 1];
+            double[] thera = new double[U1.Length + 1];
+            for (int hh = 0; hh < U.Length; hh++)
+            {
+                if (hh != U.Length - 1)
+                {
+                    U[hh] = U1[hh];
+                    thera[hh] = thera1[hh];
+                }
+                else
+                {
+                    U[hh] = balanceU;
+                    thera[hh] = balancethera;
+                }
+            }
+           
+            for (int k = 0; k < U.Length ; k++)
+            {
+                for (int i = 0; i < U.Length; i++)
+                {
+                        UU[i] = (U[k] * Math.Cos(thera[k]) - U[i] * Math.Cos(thera[i])) * (U[k] * Math.Cos(thera[k]) - U[i] * Math.Cos(thera[i])) + (U[k] * Math.Sin(thera[k]) - U[i] * Math.Sin(thera[i])) * (U[k] * Math.Sin(thera[k]) - U[i] * Math.Sin(thera[i]));
+                        Pgonglv[k, i] = -G[k, i] * UU[i];
+                        Qgonglv[k, i] = -B[k, i] * UU[i];
+                    
+                  
+
+                }
+
+            }
+
+
+
+        }
         /// <summary>
         /// 计算矩阵的乘积
         /// </summary>
@@ -859,6 +947,12 @@ namespace CalculateEngine
 
                             string[] pqstr = temp[3].Split(new char[] { 'j', '-' }, StringSplitOptions.RemoveEmptyEntries);
                             //
+                            char[] str1 = pqstr[0].ToArray();
+                            string hh = null;
+                            for (int b = 0; b < str1.Length-1; b++)
+                            {
+                                hh = hh + str1[b];
+                            }
                             if (str[0] == '-')
                             {
                                 list.Add(new PQData { Number = i + 1, Type = "PQ", Positive = -Convert.ToDouble(pqstr[0]), Inpositive = -Convert.ToDouble(pqstr[1]) });

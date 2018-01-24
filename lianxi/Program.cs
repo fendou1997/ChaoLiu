@@ -12,24 +12,37 @@ namespace lianxi
         static void Main(string[] args)
         {
             
-            if (!File.Exists("TestTxt.txt"))
+           
+
+
+
+        }
+        public static void gonglv(double[] U, double[] thera,double[,]G,double[,] B, double [,] Pgonglv, double[,] Qgonglv,double balanceU, double balancethera)
+        {
+            double[] UU = new double[U.Length+1];
+            for (int k = 0; k < U.Length+1; k++)
             {
-                FileStream fs1 = new FileStream("TestTxt.txt", FileMode.Create, FileAccess.Write);//创建写入文件 
-                StreamWriter sw = new StreamWriter(fs1);
-                sw.WriteLine("刘招成最帅");//开始写入值
-                sw.Close();
-                fs1.Close();
-            }
-            else
-            {
-                FileStream fs = new FileStream("TestTxt.txt", FileMode.Open, FileAccess.Write);
-                StreamWriter sr = new StreamWriter(fs);
-                sr.WriteLine("刘招成最帅");//开始写入值
-                sr.Close();
-                fs.Close();
+                for (int i = 0; i < U.Length+1; i++)
+                {
+                    if (i != U.Length)
+                    {
+                        UU[i] = (U[k] * Math.Cos(thera[k]) - U[i] * Math.Cos(thera[i])) * (U[k] * Math.Cos(thera[k]) - U[i] * Math.Cos(thera[i])) + (U[k] * Math.Sin(thera[k]) - U[i] * Math.Sin(thera[i])) * (U[k] * Math.Sin(thera[k]) - U[i] * Math.Sin(thera[i]));
+                        Pgonglv[k, i] = G[k, i] * UU[i];
+                        Qgonglv[k, i] = B[k, i] * UU[i];
+                    }
+                    else
+                    {
+                        UU[i] = (U[k] * Math.Cos(thera[k]) - balanceU * Math.Cos(balancethera)) * (U[k] * Math.Cos(thera[k]) - balanceU * Math.Cos(balancethera)) + (U[k] * Math.Sin(thera[k]) - balanceU * Math.Sin(balancethera)) * (U[k] * Math.Sin(thera[k]) - balanceU * Math.Sin(balancethera));
+                        Pgonglv[k, i] = G[k, i] * UU[i];
+                        Qgonglv[k, i] = B[k, i] * UU[i];
+
+
+                    }
+
+                }
 
             }
-
+            
 
 
         }

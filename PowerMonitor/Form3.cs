@@ -384,19 +384,13 @@ namespace PowerMonitor
             foreach (var item in list1)
             {
                 string[] tempi = item.Text.Trim().Split(new char[] { 'j' }, StringSplitOptions.RemoveEmptyEntries);
-                if (tempi.Length < 2)
-                {
-                    lleaf++;
-
-                }
-
+              
             }
             if (lleaf != 0)
             {
                 MessageBox.Show("输入错误，输入示例：1+j2或1-j2");
             }
-            else
-            {
+           
                 for (int i = 0; i < list2.Count; i++)
                 {
                     double Re;
@@ -450,17 +444,19 @@ namespace PowerMonitor
 
 
                 }
-            }
-            double[] G = new double[list11.Count];
-            double[] B = new double[list12.Count];
-            G = list11.ToArray();
-            B = list12.ToArray();//计算矩阵的阻抗与导纳
-            YtCreate(G, B);//进行变压器变比的修改
-            
-            Valuelist(G.ToList(), B.ToList());//调用委托，进行传值
+
+                double[] G = new double[list11.Count];
+                double[] B = new double[list12.Count];
+                G = list11.ToArray();
+                B = list12.ToArray();//计算矩阵的阻抗与导纳
+                YtCreate(G, B);//进行变压器变比的修改
+
+                Valuelist(G.ToList(), B.ToList());//调用委托，进行传值
 
 
                 this.Close();//关闭窗口
+            
+            
             }
          
         }
